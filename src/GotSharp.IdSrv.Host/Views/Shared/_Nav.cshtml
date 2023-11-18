@@ -1,0 +1,83 @@
+@using Duende.IdentityServer.Extensions
+@using IdentityExpress.Identity
+@using System.Security.Claims
+@using GotSharp.IdSrv.Host.Configuration
+@using Microsoft.FeatureManagement
+@using GotSharp.IdSrv.Host.Internal
+@using GotSharp.IdSrv.Host.Services
+@inject IViewLocalizer _localizer
+@inject UserManager<IdentityExpressUser> _userManager
+@inject ImpersonationService _impersonationService
+@inject IFeatureManager _featureManager
+@{
+    string name = null;
+    var isLocalUser = false;
+    string backToMyAccount = null;
+    var showImpersonationMenuItem = false;
+    var showMfaMenuItem = false;
+
+    if (!true.Equals(ViewData["signed-out"]))
+    {
+        name = Context.User?.GetDisplayName();
+
+        if (Context.User?.IsImpersonating() == true)
+        {
+            backToMyAccount = _localizer.GetString("BackToMyAccount", name);
+
+            var impersonator = Context.User.FindFirstValue(GotSharp.IdSrv.Host.ClaimTypes.ImpersonatorName);
+            name = impersonator + " " + _localizer.GetString("LoggedOnAs", name);
+        }
+
+        var user = await _userManager.GetUserAsync(User);
+        if (user != null)
+        {
+            isLocalUser = await _userManager.HasPasswordAsync(user);
+
+            if (backToMyAccount == null)
+            {
+                showImpersonationMenuItem = await _impersonationService.IsCurrentUserAllowedToImpersonateUsers(User);
+            }
+
+            showMfaMenuItem = await _featureManager.IsEnabledAsync(FeatureToggles.MFA);
+        }
+    }
+}
+
+<div class="nav-page">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        @if (!string.IsNullOrWhiteSpace(name))
+        {
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">@name <b class="caret"></b></a>
+
+                    <div class="dropdown-menu">
+                        
+                        @if (backToMyAccount != null)
+                        {
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Impersonation"><i class="arrow-left"></i> @backToMyAccount</a>
+                        }
+                        else if (showImpersonationMenuItem)
+                        {
+                            <a class="dropdown-item" asp-action="Index" asp-controller="Impersonation">@_localizer["Impersonation"]</a>
+                        }
+                        <a class="dropdown-item" asp-action="Index" asp-controller="UserManagement">@_localizer["Profile"]</a>
+                        @if (isLocalUser)
+                        {
+                            // Local users are allowed to change their own password and to update their (private) e-mail address.
+                            <a class="dropdown-item" asp-action="ChangePassword" asp-controller="UserManagement">@_localizer["Change Password"]</a>
+                            <a class="dropdown-item" asp-action="EmailAddress" asp-controller="UserManagement">@_localizer["Change Email"]</a>
+                        }
+                        @if (showMfaMenuItem)
+                        {
+                            <a class="dropdown-item" asp-action="MultiFactorAuthentication" asp-controller="UserManagement">@_localizer["Manage Multi-Factor Authentication"]</a>
+                        }
+                        <a class="dropdown-item" asp-action="Logout" asp-controller="Account">@_localizer["Logout"]</a>
+                    </div>
+                </li>
+            </ul>
+        }
+
+    </nav>
+</div>

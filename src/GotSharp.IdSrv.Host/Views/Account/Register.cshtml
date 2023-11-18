@@ -1,0 +1,56 @@
+﻿@using GotSharp.IdSrv.Host.Recaptcha
+@model GotSharp.IdSrv.Host.Controllers.Account.RegisterViewModel
+@inject IViewLocalizer _localizer
+
+@{
+    ViewBag.RecaptchaSiteKey = Model.RecaptchaSiteKey;
+}
+
+<div class="register-page d-flex flex-column justify-content-center align-items-center align-content-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["Register"]</h1>
+        </div>
+        <div class="d-flex flex-column-reverse flex-fill align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <partial name="_ValidationSummary" />
+                    <form asp-action="Register" asp-controller="Account" id="register-form">
+                        <input asp-for="ReturnUrl" type="hidden"/>
+                        <input type="hidden" name="grecaptcha"/>
+
+                        <div class="form-group">
+                            <label asp-for="Email">@_localizer["Email"]</label>
+                            <input asp-for="Email" class="form-control" placeholder="@_localizer["EmailPlaceholder"]" autofocus/>
+                            <small class="form-text text-muted">@_localizer["Your email address will be your username."]</small>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">@_localizer["Password"]</label>
+                            <input asp-for="Password" class="form-control" autocomplete="new-password"/>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="ConfirmPassword">@_localizer["ConfirmPassword"]</label>
+                            <input asp-for="ConfirmPassword" class="form-control" autocomplete="new-password"/>
+                        </div>
+                        <button class="btn btn-primary" id="registerbutton">@_localizer["btnRegister"]</button>
+                        <a class="btn btn-link text-left" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">@_localizer["Cancel"]</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @{
+        var recaptchaModel = new RecaptchaViewModel
+        {
+            FormId = "register-form",
+            ButtonId = "registerbutton",
+            RecaptchaSiteKey = Model.RecaptchaSiteKey,
+            Action = GoogleRecaptchaService.Actions.Register
+        };
+    }
+    <partial name="_Recaptcha" model="recaptchaModel" />
+}

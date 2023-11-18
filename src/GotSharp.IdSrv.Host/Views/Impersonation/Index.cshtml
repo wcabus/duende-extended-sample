@@ -1,0 +1,32 @@
+﻿@model ImpersonateViewModel
+@inject IViewLocalizer _localizer
+
+<div class="impersonate-page d-flex flex-column justify-content-center align-items-center align-content-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["ImpersonateTitle"]</h1>
+            <p>
+                @_localizer["ImpersonateDescription"]
+            </p>
+        </div>
+
+        <partial name="_ValidationSummary" />
+
+        <div class="d-flex flex-md-row flex-column flex-fill align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <form asp-action="PostIndex">
+                        <input type="hidden" asp-for="ReturnUrl" />
+
+                        <div class="form-group">
+                            <label asp-for="Email">@_localizer["Email"]</label>
+                            <input class="form-control" placeholder="@_localizer["Email"]" asp-for="Email" id="email" autocomplete="off" autofocus>
+                        </div>
+
+                        <button class="btn btn-primary" name="action" value="continue">@_localizer["Continue"]</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@model ProfileViewModel
+@inject IViewLocalizer _localizer
+@{
+    ViewBag.ModelOnlyErrors = true;
+}
+<h3>@_localizer["Profile"]</h3>
+<partial name="_StatusMessage" model="@(TempData["StatusMessage"])" />
+<partial name="_ValidationSummary" />
+<div class="row">
+    <div class="col-md-6">
+        <form id="profile-form" method="post" asp-action="Index">
+            <div class="form-group">
+                <label asp-for="LanguageCode">@_localizer["Preferred language"]</label>
+                <select asp-for="LanguageCode" asp-items="@Model.Languages" class="form-control"></select>
+                <div class="form-text text-muted">@_localizer["LanguageCodeHelp"]</div>
+                <span asp-validation-for="LanguageCode" class="text-danger"></span>
+            </div>
+            <button id="update-profile-button" type="submit" class="btn btn-primary">@_localizer["Save"]</button>
+        </form>
+    </div>
+</div>

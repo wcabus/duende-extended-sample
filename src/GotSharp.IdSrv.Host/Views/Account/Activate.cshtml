@@ -1,0 +1,33 @@
+﻿@model GotSharp.IdSrv.Host.Controllers.Account.ActivateViewModel
+@inject IViewLocalizer _localizer
+
+<div class="activate-account-page d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["ActivateAccount"]</h1>
+        </div>
+        <div class="d-flex flex-md-row flex-column flex-fill align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <partial name="_ValidationSummary" />
+                    @if (Model.IsCompleted)
+                    {
+                        <p>@_localizer["Activated"]</p>
+                        @if (!string.IsNullOrEmpty(Model.LoginLink))
+                        {
+                            <p>@_localizer.GetHtml("LoginLink", Model.LoginLink)</p>
+                        }
+                    }
+                    else
+                    {
+                        <p>
+                            <a asp-action="ResendActivationEmail" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl">
+                                @_localizer["ResendActivationLink"]
+                            </a>
+                        </p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

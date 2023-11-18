@@ -1,0 +1,24 @@
+@using Microsoft.AspNetCore.Mvc.ModelBinding
+@inject IViewLocalizer _localizer
+@{
+    var modelOnlyErrors = (ViewBag.ModelOnlyErrors == true);
+    var hasErrors = !ViewContext.ModelState.IsValid;
+    if (modelOnlyErrors && hasErrors)
+    {
+        hasErrors = ViewContext.ModelState.ContainsKey("") && ViewContext.ModelState[""].ValidationState == ModelValidationState.Invalid;
+    }
+}
+@if (hasErrors)
+{
+    <div class="alert alert-danger">
+        <strong>@_localizer["Error"]</strong>
+        @if (modelOnlyErrors)
+        {
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        }
+        else
+        {
+            <div asp-validation-summary="All" class="text-danger"></div>
+        }
+    </div>
+}

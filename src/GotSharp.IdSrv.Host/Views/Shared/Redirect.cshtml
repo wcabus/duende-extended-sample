@@ -1,0 +1,12 @@
+@model GotSharp.IdSrv.Host.Controllers.Account.RedirectViewModel
+@inject IViewLocalizer _localizer 
+
+<div class="redirect-page">
+    <div class="lead">
+        <h1>@_localizer["Title"]</h1>
+        <p>@_localizer["Message"]</p>
+    </div>
+</div>
+
+<meta http-equiv="refresh" content="0;url=@Model.RedirectUrl" data-url="@Model.RedirectUrl">
+<script src="~/js/signin-redirect.js"></script>

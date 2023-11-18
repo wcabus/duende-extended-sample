@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IdentityExpress.Manager.UI</name>
+    </assembly>
+    <members>
+        <member name="T:IdentityExpress.Manager.Api.AccessTokenValidation.Selector">
+            <summary>
+            Provides helper functions for forwarding logic
+            </summary>
+        </member>
+        <member name="M:IdentityExpress.Manager.Api.AccessTokenValidation.Selector.ForwardReferenceToken(System.String)">
+            <summary>
+            Provides a forwarding func for JWT vs reference tokens (based on existence of dot in token)
+            </summary>
+            <param name="introspectionScheme">Scheme name of the introspection handler</param>
+            <returns></returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.Api.AccessTokenValidation.Selector.GetSchemeAndCredential(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Extracts scheme and credential from Authorization header (if present)
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds AdminUI and its related services to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection being initialised.</param>
+            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder">IdentityStoreBuilder for configuring a custom identity store.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIOptions})">
+            <summary>
+            Adds AdminUI and its related services to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+            <param name="services">The service collection being initialised.</param>
+            <param name="options" cref="T:System.Action`1">Additional AdminUI configuration options.</param>
+            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder">IdentityStoreBuilder for configuring a custom identity store.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.UseAdminUI(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds the AdminUI dependent middleware to the specified <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.
+            </summary>
+            <param name="appBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</returns>
+            <exception cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIRegistrationException">Thrown when <see cref="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/> has not been called in the service configuration.</exception>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder">
+            <summary>
+            Allows you do register methods to configure a custom user store
+            </summary>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder.WithIdentityStore``1">
+            <summary>
+            Used to define a custom implementation of <see cref="T:Rsk.CustomIdentity.Interfaces.ISSOStoreFactory"/> to be used in AdminUI.
+            </summary>
+            <typeparam name="TStoreFactory">The concrete implementation of <see cref="T:Rsk.CustomIdentity.Interfaces.ISSOStoreFactory"/>.</typeparam>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Middleware.OidcSignInMiddleware">
+            <summary>
+            Due to same site cookie changes the response from IdentityServer is a cross origin response
+            which means our sign in cookie is not served to the originating endpoint
+            https://brockallen.com/2019/01/11/same-site-cookies-asp-net-core-and-external-authentication-providers/ 
+            </summary>
+            <param name="applicationBuilder"></param>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.License.ISystemClock.UtcNow">
+            <summary>
+            Retrieves the current system time in UTC.
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.License.SystemClock.UtcNow">
+            <summary>
+            Retrieves the current system time in UTC.
+            </summary>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.License.InvalidLicenseException">
+            <summary>
+            Thrown when the license fails to validate
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseConstants.GracePeriodMonths">
+            <summary>
+            The amount of months we allow customs to use their license key over the license key expiry date
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.AuthorityURL">
+            <summary>
+            Authority URL e.g. IdentityServer Authority URL to ensure only authority per instance 
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.MaxClients">
+            <summary>
+            Max number of clients allowed within the application
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.MaxUsers">
+            <summary>
+            Max users allowed in IdentityServer
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.HardExpiryDate">
+            <summary>
+            If this date has passed, the application will stop working
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.Signature">
+            <summary>
+            Computed with the hash value of the license byte array using the specified hash algorithm, and signed with the resulting hash value.
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.LicenseStatus">
+            <summary>
+            License status to ensure validity
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.LicenseType">
+            <summary>
+            License type (volume or single)
+            </summary>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Legacy.LegacyLicenseStatus">
+            <summary>
+            Current license status - valid or unvalid, after checking digital signature
+            </summary>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Legacy.LegacyLicenseType">
+            <summary>
+            License type. Can be a combination of the flags (e.g. unlimited users and wildcard)
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.ConfigurationSettings.RunIdentityServerMigrations">
+            <summary>
+            RunIdentityServerMigrations and RunIdentityMigrations are deprecated config values, but we still check for them in users config to warn them that they
+            have no bearing on the functionality of the migrations
+            </summary>
+        </member>
+        <member name="M:IdentityExpress.Manager.Controllers.UsersController.CannotUpdateItemSubjectIsNull(System.String)">
+            <summary>
+            Logs the fact that the subject is null and return a bad request
+            </summary>
+            <param name="subject"></param>
+            <returns>BadRequest ActionResult</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.Controllers.UsersController.FindUser(System.String)">
+            <summary>
+            Finds the user by subject and logs the service call
+            </summary>
+            <param name="subject"></param>
+            <returns>Async User</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.MigrationRunner.SchemaCheck.DbSchemaService.PerformManualDataTableFiltering(System.String,System.String,System.Data.DataTable)">
+            <summary>
+            The package we use to provide MySql functionality in AdminUI has an issue in its GetSchema method that causes no table restrictions we pass into it to take place.
+            This means that even if we pass in restrictions on the database and column, such as "Give me the columns for X table in Y database", we'll still get back schema information for ALL tables and ALL columns in ALL databases
+            So for now, we need to do the filtering ourselves if the provider being used is MySql
+            </summary>
+            <returns>DataTable</returns>
+        </member>
+        <member name="P:IdentityExpress.Manager.MigrationRunner.SchemaCheck.ISchemaValidationResult.Exists">
+            <summary>
+            Returns true if any tables for this schema exist
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.MigrationRunner.SchemaCheck.ISchemaValidationResult.IsValid">
+            <summary>
+            Returns true if their schema contains the same tables and columns as our schema
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.MigrationRunner.SchemaCheck.ISchemaValidationResult.ErrorMessages">
+            <summary>
+            If we're running the schema checker in the console runner, the logger would log any errors contained within this collection
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.LicensingExtension.UseLicensingMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Use the licensing middleware without options
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

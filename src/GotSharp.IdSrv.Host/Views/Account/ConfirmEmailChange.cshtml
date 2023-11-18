@@ -1,0 +1,17 @@
+﻿@model GotSharp.IdSrv.Host.Controllers.Account.ConfirmEmailChangeViewModel
+@inject IViewLocalizer _localizer
+
+<div class="confirm-email-change-page d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["Confirm email change"]</h1>
+        </div>
+        <partial name="_ValidationSummary" />
+        @if (!string.IsNullOrWhiteSpace(Model.Error))
+        {
+            <div class="text-danger">
+                @Html.Raw(Model.Error)
+            </div>
+        }
+    </div>
+</div>

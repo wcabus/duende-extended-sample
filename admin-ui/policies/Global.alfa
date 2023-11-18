@@ -1,0 +1,149 @@
+namespace AdminUI.AccessPolicy {
+    import Oasis.Functions.*
+    import Oasis.Attributes.*
+
+    //The current actions in AdminUI:
+    // view
+    // create
+    // update
+    // delete
+    // applyClaim
+    
+    //The current resource types are use in AdminUI:
+
+    //client
+    //protectedResource
+    //identityResource
+    //user
+    //claimType
+    //role
+    //audit
+    
+    //This is for the user settings endpoint detailed here: https://www.identityserver.com/articles/adminuis-user-settings-endpoints
+    //this is only protected by the "admin_ui_public" scope at the moment 
+    //userClaim
+    
+    //These 3 are only protected by checking if the user is Authorised
+    //licenseData - used to display the licensee in the UI;
+    //uiConfiguration - used to hide and show features in the UI
+    //permissions - Resource describe the UserPermissions endpoint can be called. Currently protected only by scope
+    
+    //The resource types fall under the "All" permission. As our Pep Bias is Deny we have not included them in the ALFA
+    //signingKey - "Keys" page in the settings section
+    //webhookConfiguration - "Webhook Configuration" page in the settings section
+    //importExportModel - Import/Export buttons in the clients page
+    
+    
+    attribute ResourceSubject { id="ResourceSubject" category=subjectCat type=string}
+    attribute ClaimType { id="ClaimType" category=resourceCat type=string}
+    attribute ClaimValue { id="ClaimValue" category=resourceCat type=string}
+
+    policyset adminui
+    {
+        apply firstApplicable
+        policy fullAccess
+        policy readOnlyFullAccess
+        policy applyClaim
+        policy claimTypeManagement
+        policy userManagement
+        policy identityServerManagement
+        policy auditer
+    }
+
+    policy fullAccess
+    {
+        apply firstApplicable
+        rule adminHasFullAccess
+        {
+            permit
+            condition Subject.Role == "AdminUI Administrator"
+        }
+    }
+    
+    policy applyClaim
+    {
+        target clause Action == "applyClaim"
+        apply permitUnlessDeny
+
+        rule cantUpdateRoleUsedInPolicyUnlessAdmin
+        {
+            deny
+            condition ClaimType == "role"
+            and (ClaimValue == "IdentityServer Manager" || ClaimValue == "User Manager" || ClaimValue == "AdminUI Administrator")
+        }
+    }
+
+    policy readOnlyFullAccess
+    {
+        target clause Subject.Role == "Admin ReadOnly"
+        apply denyUnlessPermit
+        rule readOnlyAll{
+            permit
+            condition Action == "view"
+        }
+    }
+
+    //These were previously under the "any" permissions
+    policy claimTypeManagement
+    {
+        target clause ResourceType == "claimType"
+        apply denyUnlessPermit
+
+        rule anyOneCanView {
+            permit
+            condition Action == "view"
+        }
+
+        rule onlyIdentityServerManagers {
+            permit
+            condition Subject.Role == "IdentityServer Manager"
+        }
+    }
+
+    policy userManagement
+    {
+        apply denyUnlessPermit
+        target clause ResourceType == "user" or
+        ResourceType == "role"
+        
+        rule fullAccess {
+            permit
+            condition Subject.Role == "User Manager"
+        }
+
+        rule readOnly {
+            permit
+            condition Action == "view" and Subject.Role == "User Manager ReadOnly"
+        }
+    }
+    
+    policy identityServerManagement
+    {
+        apply denyUnlessPermit
+        target clause ResourceType == "client" or
+        ResourceType == "protectedResource" or
+        ResourceType == "identityResource"
+        
+        rule fullAccess{
+            permit
+
+            condition Subject.Role == "IdentityServer Manager"
+        }
+
+        rule readOnly {
+            permit
+            condition Action == "view" and Subject.Role == "IdentityServer Manager ReadOnly"
+        }
+    }
+    
+    policy auditer
+    {
+        apply denyUnlessPermit
+        target clause ResourceType == "audit"
+        
+        rule fullAccess{
+            permit
+            condition Subject.Role == "auditer" 
+        }
+    }
+}

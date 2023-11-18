@@ -1,0 +1,33 @@
+@model GotSharp.IdSrv.Host.Controllers.Account.LoggedOutViewModel
+@inject IViewLocalizer _localizer
+@{ 
+    // set this so the layout rendering sees an anonymous user
+    ViewData["signed-out"] = true;
+}
+
+<div class="logged-out-page d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column col-login-ui">
+        <h1>@_localizer["Logout"]</h1>
+        <p>@_localizer["LoggedOut"]</p>
+
+        @if (Model.PostLogoutRedirectUri != null)
+        {
+            <div>
+                @_localizer.GetHtml("ClickToReturn", Model.PostLogoutRedirectUri, Model.ClientName)
+            </div>
+        }
+
+        @if (Model.SignOutIframeUrl != null)
+        {
+            <iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+        }
+    </div>
+</div>
+
+@section scripts
+{
+    @if (Model.AutomaticRedirectAfterSignOut)
+    {
+        <script src="~/js/signout-redirect.js"></script>
+    }
+}

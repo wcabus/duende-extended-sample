@@ -1,0 +1,21 @@
+﻿@model ImpersonateSessionViewModel
+@inject IViewLocalizer _localizer
+
+<div class="impersonate-page d-flex flex-column justify-content-center align-items-center align-content-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["ImpersonateTitle"]</h1>
+            <p>
+                @_localizer.GetString("ImpersonatingDescription", Model.Name)
+            </p>
+        </div>
+
+        <partial name="_ValidationSummary" />
+
+        <div class="d-flex flex-md-row flex-column flex-fill align-items-stretch">
+            <form asp-action="EndSession">
+                <button class="btn btn-primary" name="action" value="endsession">@_localizer["End Session"]</button>
+            </form>
+        </div>
+    </div>
+</div>

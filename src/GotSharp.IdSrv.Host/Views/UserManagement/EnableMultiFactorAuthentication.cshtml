@@ -1,0 +1,18 @@
+﻿@inject IViewLocalizer _localizer
+<h3>@_localizer["Enable Multi-Factor Authentication"]</h3>
+<partial name="_StatusMessage" model="@(TempData["StatusMessage"])" />
+
+<div class="alert alert-info" role="alert">
+    <p>
+        <strong>@_localizer["This action only enables multi-factor authentication."]</strong><br/>
+        @_localizer["By default, your email address is used as an authenticator method when you sign in using multi-factor authentication."]
+        <br/>
+        @_localizer["After enabling multi-factor authentication, you can configure additional authenticator methods."]
+    </p>
+</div>
+
+<div>
+    <form method="post" class="form-group" asp-action="EnableMultiFactorAuthentication">
+        <button class="btn btn-success" type="submit">@_localizer["Enable MFA"]</button>
+    </form>
+</div>

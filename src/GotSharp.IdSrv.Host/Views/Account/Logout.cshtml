@@ -1,0 +1,20 @@
+@model GotSharp.IdSrv.Host.Controllers.Account.LogoutViewModel
+@inject IViewLocalizer _localizer
+
+<div class="logout-page d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["Logout"]</h1>
+            <p>@_localizer["LogoutLine"]</p>
+        </div>
+
+        <div class="d-flex flex-row flex-fill">
+            <form asp-action="Logout" class="w-100">
+                <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+                <div class="form-group">
+                    <button class="btn btn-primary">@_localizer["Yes"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

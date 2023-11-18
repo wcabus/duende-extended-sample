@@ -1,0 +1,109 @@
+@using GotSharp.IdSrv.Host.Recaptcha
+@model GotSharp.IdSrv.Host.Controllers.Account.LoginViewModel
+@inject IViewLocalizer _localizer
+
+@{
+    ViewData["signed-out"] = true; // During authentication, do not show to a user that they're authenticated in the menu
+
+    ViewBag.RecaptchaSiteKey = Model.RecaptchaSiteKey;
+    var allowEditingUsername = true;
+
+    var loginPromptKey = "Login";
+}
+
+<div class="login-page d-flex flex-column justify-content-center align-items-center align-content-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["Welcome"]</h1>
+            <h2>@_localizer[loginPromptKey]</h2>
+        </div>
+
+        <div class="d-flex flex-column-reverse flex-fill align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <partial name="_ValidationSummary" />
+                    <form asp-action="LoginLocally" id="loginForm">
+                        <input type="hidden" asp-for="ReturnUrl"/>
+                        <input type="hidden" name="grecaptcha"/>
+                        <input type="hidden" name="action" value=""/>
+
+                        <div class="form-group">
+                            <label>@_localizer["Username"]</label>
+                            @if (allowEditingUsername)
+                            {
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="@Model.Username" readonly />
+                                    <div class="input-group-append">
+                                        <a class="btn btn-link" asp-action="Login" asp-route-returnUrl="@Model.ReturnUrl">@_localizer["Edit"]</a>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <span class="form-control">@Model.Username</span>
+                            }
+                            <input asp-for="Username" type="hidden"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Password">@_localizer["Password"]</label>
+                            <input type="password" class="form-control" placeholder="@_localizer["Password"]" asp-for="Password" autofocus autocomplete="off">
+                        </div>
+                        @if (Model.AllowRememberLogin)
+                        {
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="RememberLogin">
+                                    <label class="form-check-label" asp-for="RememberLogin">
+                                        @_localizer["Remember My Login"]
+                                    </label>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.EnableRegistration || Model.EnableResetPassword)
+                        {
+                            <div class="form-group">
+                                @if (Model.EnableResetPassword)
+                                {
+                                    <p>
+                                        <a asp-action="ForgotPassword"
+                                           asp-controller="Account"
+                                           asp-route-returnUrl="@Model.ReturnUrl">
+                                            @_localizer["ForgotPasswordLink"]
+                                        </a>
+                                    </p>
+                                }
+                                @if (Model.EnableRegistration)
+                                {
+                                    <p>
+                                        <a asp-action="ResendActivationEmail"
+                                           asp-controller="Account"
+                                           asp-route-returnUrl="@Model.ReturnUrl">
+                                            @_localizer["ResendActivationLink"]
+                                        </a>
+                                    </p>
+                                }
+                            </div>
+                        }
+                        <button class="btn btn-primary" id="loginbutton">@_localizer["btnLogin"]</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @{
+        var recaptchaModel = new RecaptchaViewModel
+        {
+            FormId = "loginForm",
+            ButtonId = "loginbutton",
+            RecaptchaSiteKey = Model.RecaptchaSiteKey,
+            Action = GoogleRecaptchaService.Actions.Login,
+            ButtonAction = "login"
+        };
+    }
+    <partial name="_Recaptcha" model="recaptchaModel" />
+}

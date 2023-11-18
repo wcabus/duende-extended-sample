@@ -1,0 +1,32 @@
+﻿@model SetupAuthenticatorViewModel
+@inject IViewLocalizer _localizer
+<h3>@_localizer["Setup Authenticator App"]</h3>
+<partial name="_StatusMessage" model="@(TempData["StatusMessage"])" />
+<div>
+    <p>@_localizer["To use an authenticator app go through the following steps:"]</p>
+    <ol class="list">
+        <li>
+            <p>@_localizer.GetHtml("Download an app")</p>
+        </li>
+        <li>
+            <p>@_localizer.GetHtml("Scan or enter the authenticator key", Model.SharedKey)</p>
+            <img class="img-thumbnail" src="@Url.Action("GenerateQrCode")" alt="@_localizer["QR Code"]" width="250" height="250"/>
+        </li>
+        <li>
+            <p>@_localizer["Verify setup"]</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="send-code" method="post" asp-action="EnableAuthenticator">
+                        <div class="form-group">
+                            <label asp-for="VerificationCode" class="control-label">@_localizer["Verification code"]</label>
+                            <input asp-for="VerificationCode" class="form-control" autocomplete="off"/>
+                            <span asp-validation-for="VerificationCode" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary">@_localizer["Verify"]</button>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ol>
+</div>

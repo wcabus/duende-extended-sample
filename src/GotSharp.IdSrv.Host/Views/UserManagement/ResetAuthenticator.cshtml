@@ -1,0 +1,19 @@
+﻿@inject IViewLocalizer _localizer
+<h3>@_localizer["Reset Authenticator Key"]</h3>
+<partial name="_StatusMessage" model="@(TempData["StatusMessage"])" />
+<div class="alert alert-warning" role="alert">
+    <p>
+        <span class="glyphicon glyphicon-warning-sign"></span>
+        <strong>@_localizer["ResetWarning"]</strong>
+    </p>
+    <p>
+        @_localizer["ResetWarningExplanation"]
+    </p>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <form id="reset-authenticator-form" method="post" asp-action="ResetAuthenticator">
+            <button type="submit" class="btn btn-danger">@_localizer["Reset Authenticator Key"]</button>
+        </form>
+    </div>
+</div>

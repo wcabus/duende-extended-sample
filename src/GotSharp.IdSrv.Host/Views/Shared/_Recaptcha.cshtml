@@ -1,0 +1,19 @@
+﻿@model GotSharp.IdSrv.Host.Recaptcha.RecaptchaViewModel
+
+<script csp-nonce="true">
+    document.getElementById('@Model.ButtonId').addEventListener('click', function (e) {
+        e.preventDefault();
+        grecaptcha.enterprise.ready(function() {
+            grecaptcha.enterprise.execute('@Model.RecaptchaSiteKey', { action: '@Model.Action' }).then(function (token) {
+                document.getElementsByName('@Model.RecaptchaFieldName')[0].value = token;
+
+                var form = document.getElementById('@Model.FormId');
+                @if (!string.IsNullOrEmpty(Model.ActionFieldName) && !string.IsNullOrEmpty(Model.ButtonAction))
+                {
+                @:form.elements['@Model.ActionFieldName'].value = '@Model.ButtonAction';
+                }
+                form.submit();
+            });
+        });
+    });
+</script>

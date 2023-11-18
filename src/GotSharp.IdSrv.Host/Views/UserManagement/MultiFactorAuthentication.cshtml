@@ -1,0 +1,92 @@
+﻿@using GotSharp.IdSrv.Host
+@model MultiFactorAuthenticationViewModel
+@inject IViewLocalizer _localizer
+
+@{
+    async Task PreferenceWidget(string type)
+    {
+        <td class="border-bottom text-center border-right-0">
+            @if (Model.PreferredType == @type)
+            {
+                <i class="bi bi-star-fill tertiary-color" title="@_localizer["Preferred"]"></i>
+            }
+            else
+            {
+                <a asp-action="SetPreferredMfaMethod" asp-route-type="@type"><i class="bi bi-star" title="@_localizer["Set preferred"]"></i></a>
+            }
+        </td>
+    }
+}
+
+<h3>@_localizer["Multi-Factor Authentication"]</h3>
+<partial name="_StatusMessage" model="@(TempData["StatusMessage"])" />
+@if (Model.IsMfaEnabled)
+{
+    <p>@_localizer.GetHtml("Multi-factor authentication methods")</p>
+    <table class="table table-bordered">
+        @if (!Model.HasAllMfaTypes) 
+        {
+            <tr>
+                <td class="border-bottom" colspan="5"><a asp-action="EnableAuthenticator"><i class="bi bi-plus-lg"></i> @_localizer["Add authentication method"]</a></td>
+            </tr>
+        }
+        @if (Model.HasAuthenticator)
+        {
+            <tr>
+                @{
+                    await PreferenceWidget(MfaTypes.Authenticator);
+                }
+                <td class="border-bottom border-left-0 border-right-0" colspan="2"><i class="bi bi-shield-lock"></i> @_localizer["Authenticator app"]</td>
+                <td class="border-bottom border-left-0 border-right-0"><a asp-action="EnableAuthenticator">@_localizer["Setup authenticator app"]</a></td>
+                <td class="border-bottom border-left-0"><a asp-action="ResetAuthenticator">@_localizer["Reset authenticator app"]</a></td>
+            </tr>
+        }
+        <tr>
+            @{ await PreferenceWidget(MfaTypes.Email); }
+            <td class="border-bottom border-left-0 border-right-0"><i class="bi bi-envelope"></i> @_localizer["Email"]</td>
+            <td class="border-bottom border-left-0" colspan="3">@Model.Email</td>
+        </tr>
+        @if (!string.IsNullOrEmpty(Model.Phone))
+        {
+            <tr>
+                @{ await PreferenceWidget(MfaTypes.Phone); }
+                <td class="border-bottom border-left-0 border-right-0"><i class="bi bi-telephone"></i> @_localizer["Phone"]</td>
+                <td class="border-bottom border-left-0" colspan="3">@Model.Phone</td>
+            </tr>
+        }
+    </table>
+
+    switch (Model.RecoveryCodesLeft)
+    {
+        case 0:
+            <div class="alert alert-danger">
+                <strong>@_localizer["You have no recovery codes left."]</strong>
+                <p>@_localizer.GetHtml("MustGenerateCodesLink", Url.Action("GenerateRecoveryCodes")!)</p>
+            </div>
+            break;
+        case 1:
+            <div class="alert alert-danger">
+                <strong>@_localizer["You have 1 recovery code left."]</strong>
+                <p>@_localizer.GetHtml("CanGenerateCodesLink", Url.Action("GenerateRecoveryCodes")!)</p>
+            </div>
+            break;
+        case <= 3:
+            <div class="alert alert-warning">
+                <strong>@_localizer.GetString("You have {0} recovery codes left.", Model.RecoveryCodesLeft)</strong>
+                <p>@_localizer.GetHtml("ShouldGenerateCodesLink", Url.Action("GenerateRecoveryCodes")!)</p>
+            </div>
+            break;
+    }
+
+    if (Model.IsMachineRemembered)
+    {
+        <a asp-action="ForgetThisDevice" class="btn btn-default">@_localizer["Forget this device"]</a>
+    }
+    
+    <a asp-action="GenerateRecoveryCodes" class="btn btn-default">@_localizer["Reset recovery codes"]</a>
+    <a asp-action="DisableMultiFactorAuthentication" class="btn btn-danger">@_localizer["Disable MFA"]</a>
+}
+else
+{
+    <a class="btn btn-primary" asp-action="EnableMultiFactorAuthentication">@_localizer["Enable MFA"]</a>
+}

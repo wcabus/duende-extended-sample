@@ -1,0 +1,54 @@
+﻿@using GotSharp.IdSrv.Host.Recaptcha
+@model GotSharp.IdSrv.Host.Controllers.Account.LoginWithRecoveryCodeViewModel
+@inject IViewLocalizer _localizer
+
+@{
+    ViewData["signed-out"] = true; // During authentication, do not show to a user that they're authenticated in the menu
+
+    ViewBag.RecaptchaSiteKey = Model.RecaptchaSiteKey;
+    ViewBag.ModelOnlyErrors = true;
+}
+
+<div class="login-page d-flex flex-column justify-content-center align-items-center align-content-center">
+    <div class="d-flex flex-column col-login-ui">
+        <div class="lead">
+            <h1>@_localizer["Recovery code verification"]</h1>
+            <p>@_localizer["RecoveryCodeDescription"]</p>
+        </div>
+
+        <div class="d-flex flex-md-row flex-column flex-fill align-items-stretch">
+            <div class="card w-100">
+                <div class="card-body">
+                    <partial name="_ValidationSummary" />
+                    <form asp-action="LoginWithRecoveryCode" id="loginForm" asp-route-returnUrl="@Model.ReturnUrl">
+                        <input type="hidden" asp-for="ReturnUrl"/>
+                        <input type="hidden" name="grecaptcha"/>
+                        <input type="hidden" name="action" value=""/>
+
+                        <div class="form-group">
+                            <label asp-for="RecoveryCode">@_localizer["RecoveryCode"]</label>
+                            <input class="form-control" asp-for="RecoveryCode" autofocus autocomplete="off">
+                            <span asp-validation-for="RecoveryCode" class="text-danger"></span>
+                        </div>
+                        <button class="btn btn-primary" id="loginbutton">@_localizer["btnLogin"]</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @{
+        var recaptchaModel = new RecaptchaViewModel
+        {
+            FormId = "loginForm",
+            ButtonId = "loginbutton",
+            RecaptchaSiteKey = Model.RecaptchaSiteKey,
+            Action = GoogleRecaptchaService.Actions.RecoveryCode,
+            ButtonAction = "login"
+        };
+    }
+    <partial name="_Recaptcha" model="recaptchaModel" />
+}

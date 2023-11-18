@@ -1,0 +1,20 @@
+﻿@model MinimumMfaViewModel
+@inject IViewLocalizer _localizer
+<h3>@_localizer["Disable Multi-Factor Authentication"]</h3>
+<partial name="_StatusMessage" model="@(TempData["StatusMessage"])" />
+
+<div class="alert alert-warning" role="alert">
+    <p>
+        <strong>@_localizer["This action only disables multi-factor authentication."]</strong>
+    </p>
+    @if (Model.HasAuthenticator)
+    {
+        <p>@_localizer.GetHtml("ResetAuthenticatorMessage", Url.Action("ResetAuthenticator")!)</p>
+    }
+</div>
+
+<div>
+    <form method="post" class="form-group" asp-action="DisableMultiFactorAuthentication">
+        <button class="btn btn-danger" type="submit">@_localizer["Disable MFA"]</button>
+    </form>
+</div>
