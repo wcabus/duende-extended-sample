@@ -43,6 +43,13 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddFeatureManagement();
+
+        var appConfigConnectionString = builder.Configuration.GetConnectionString("AppConfig");
+        if (!string.IsNullOrEmpty(appConfigConnectionString))
+        {
+            builder.Configuration.AddAzureAppConfiguration(appConfigConnectionString);
+        }
+
         builder.Services.AddTransient<IDisabledFeaturesHandler, RedirectDisabledFeaturesHandler>();
 
         // Add the generic health checks
