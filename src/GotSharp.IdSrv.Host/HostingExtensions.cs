@@ -2,10 +2,12 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Duende.IdentityServer;
 using Duende.IdentityServer.EntityFramework.DbContexts;
+using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores.Default;
 using Google.Cloud.RecaptchaEnterprise.V1;
 using GotSharp.IdSrv.Host.Configuration;
 using GotSharp.IdSrv.Host.DataProtection;
+using GotSharp.IdSrv.Host.Events;
 using GotSharp.IdSrv.Host.Health;
 using GotSharp.IdSrv.Host.Internal;
 using GotSharp.IdSrv.Host.Internal.IdentityExpress;
@@ -35,6 +37,7 @@ using Microsoft.FeatureManagement.Mvc;
 using Microsoft.Graph;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json.Serialization;
+using RSK.Audit.EF;
 using SendGrid.Extensions.DependencyInjection;
 using Serilog;
 
@@ -117,6 +120,7 @@ internal static class HostingExtensions
 
         var migrationsAssembly = typeof(Program).Assembly.FullName;
         var identityProviderConfigDb = builder.Configuration.GetConnectionString("IdentityProviderConfigDb");
+        builder.Services.AddAuditSink(identityProviderConfigDb);
 
         var identityServerBuilder = builder.Services
             .AddIdentityServer(options =>
@@ -312,6 +316,16 @@ internal static class HostingExtensions
         services.AddTransient<HomeRealmDiscoveryService>();
 
         return services;
+    }
+
+    public static void AddAuditSink(this IServiceCollection services, string connectionString, string sourceName = "IdentityServer")
+    {
+        var builder = new DbContextOptionsBuilder<AuditDatabaseContext>();
+        builder.UseSqlServer(connectionString, x => x.EnableRetryOnFailure());
+
+        var auditProviderFactory = new AuditProviderFactory(builder.Options);
+        var auditRecorder = auditProviderFactory.CreateAuditSource(sourceName);
+        services.AddSingleton<IEventSink>(_ => new AuditSink(auditRecorder));
     }
 
     private static AuthenticationBuilder AddAzureAD(this AuthenticationBuilder authenticationBuilder, IConfiguration configuration)
