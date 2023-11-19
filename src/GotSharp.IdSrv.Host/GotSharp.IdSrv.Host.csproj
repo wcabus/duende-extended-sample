@@ -31,6 +31,7 @@
 		<PackageReference Include="Microsoft.Extensions.Azure" />
 		<PackageReference Include="Microsoft.Extensions.Caching.SqlServer" />
 		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" />
+		<PackageReference Include="Microsoft.Extensions.Localization" />
 		<PackageReference Include="Microsoft.FeatureManagement.AspNetCore" />
 		<PackageReference Include="Microsoft.Graph" />
 		<PackageReference Include="Microsoft.NETCore.Platforms" />

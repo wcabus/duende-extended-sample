@@ -1,3 +1,4 @@
+using System.Globalization;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Duende.IdentityServer;
@@ -22,6 +23,7 @@ using Microsoft.AspNetCore.DataProtection.Internal;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
@@ -71,6 +73,13 @@ internal static class HostingExtensions
                 });
 
         builder.Services.AddApplicationInsightsTelemetry();
+
+        builder.Services.AddLocalization(x => x.ResourcesPath = "Resources");
+        builder.Services.Configure<RequestLocalizationOptions>(x => 
+        {
+            x.SupportedCultures = x.SupportedUICultures = new[] { new CultureInfo("en-US") };
+            x.DefaultRequestCulture = new RequestCulture("en-US");
+        });
 
         var mvcBuilder = builder.Services
             .AddControllersWithViews()
@@ -509,6 +518,8 @@ internal static class HostingExtensions
         app.UseAuthorization();
         
         app.UseSession();
+
+        app.UseRequestLocalization();
 
         app.MapDefaultControllerRoute()
             .RequireAuthorization();
