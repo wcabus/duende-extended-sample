@@ -57,12 +57,21 @@
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>EmailSubjects.resx</DependentUpon>
 	  </Compile>
+	  <Compile Update="Resources\ViewModelResources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ViewModelResources.resx</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <EmbeddedResource Update="Resources\EmailSubjects.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>EmailSubjects.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\ViewModelResources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ViewModelResources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 </Project>

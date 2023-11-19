@@ -1,4 +1,3 @@
-using System.Globalization;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Duende.IdentityServer;
@@ -12,6 +11,7 @@ using GotSharp.IdSrv.Host.Internal;
 using GotSharp.IdSrv.Host.Internal.IdentityExpress;
 using GotSharp.IdSrv.Host.Internal.KeyVault;
 using GotSharp.IdSrv.Host.Recaptcha;
+using GotSharp.IdSrv.Host.Resources;
 using GotSharp.IdSrv.Host.Services;
 using GotSharp.IdSrv.Host.Services.AzureAD;
 using GotSharp.IdSrv.Host.Services.Contracts;
@@ -74,11 +74,18 @@ internal static class HostingExtensions
 
         builder.Services.AddApplicationInsightsTelemetry();
 
-        builder.Services.AddLocalization(x => x.ResourcesPath = "Resources");
+        builder.Services.AddLocalization();
         builder.Services.Configure<RequestLocalizationOptions>(x => 
         {
-            x.SupportedCultures = x.SupportedUICultures = new[] { new CultureInfo("en-US") };
-            x.DefaultRequestCulture = new RequestCulture("en-US");
+            x.AddSupportedCultures("en");
+            x.AddSupportedUICultures("en");
+            x.SetDefaultCulture("en");
+
+            var cookieRequestCultureProvider = x.RequestCultureProviders.OfType<CookieRequestCultureProvider>().FirstOrDefault();
+            if (cookieRequestCultureProvider is not null)
+            {
+                cookieRequestCultureProvider.CookieName = builder.Configuration["CookieNames:Culture"]!;
+            }
         });
 
         var mvcBuilder = builder.Services
@@ -86,6 +93,7 @@ internal static class HostingExtensions
             .AddNewtonsoftJson(x =>
                 x.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver())
             .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+            .AddDataAnnotationsLocalization(x => x.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(ViewModelResources)))
             .AddSessionStateTempDataProvider();
 
         if (builder.Environment.IsDevelopment())
@@ -514,12 +522,12 @@ internal static class HostingExtensions
 
         app.UseStaticFiles();
         app.UseRouting();
+        app.UseRequestLocalization();
+
         app.UseIdentityServer();
         app.UseAuthorization();
         
         app.UseSession();
-
-        app.UseRequestLocalization();
 
         app.MapDefaultControllerRoute()
             .RequireAuthorization();
