@@ -24,6 +24,7 @@
     <PackageVersion Include="Microsoft.Extensions.Azure" Version="1.7.1" />
     <PackageVersion Include="Microsoft.Extensions.Caching.SqlServer" Version="7.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="7.0.14" />
+    <PackageVersion Include="Microsoft.Extensions.Localization" Version="7.0.14" />
     <PackageVersion Include="Microsoft.FeatureManagement.AspNetCore" Version="3.0.0" />
     <PackageVersion Include="Microsoft.Graph" Version="5.35.0" />
     <PackageVersion Include="Microsoft.NETCore.Platforms" Version="7.0.4" />

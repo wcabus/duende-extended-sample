@@ -273,6 +273,18 @@
           "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "7.0.14"
         }
       },
+      "Microsoft.Extensions.Localization": {
+        "type": "Direct",
+        "requested": "[7.0.14, )",
+        "resolved": "7.0.14",
+        "contentHash": "TE85myK2ZXShBXiZjLDZz9LWLXNZW6nIQAKZxSsKSkWgwrBEom+o3vKG9iHjJHUUCOB96gCB+KyieHyS3e7AOQ==",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0",
+          "Microsoft.Extensions.Localization.Abstractions": "7.0.14",
+          "Microsoft.Extensions.Logging.Abstractions": "7.0.1",
+          "Microsoft.Extensions.Options": "7.0.1"
+        }
+      },
       "Microsoft.FeatureManagement.AspNetCore": {
         "type": "Direct",
         "requested": "[3.0.0, )",
@@ -1119,8 +1131,8 @@
       },
       "Microsoft.Extensions.Localization.Abstractions": {
         "type": "Transitive",
-        "resolved": "6.0.2",
-        "contentHash": "/NKlZ66nW2qTzPsKkVxVIcJs0DLnmvlCdvU6CnrWBaebOZrxhGwUMYjOdWn2zODiV8Jg2zeHesQGsdamJ83XzQ=="
+        "resolved": "7.0.14",
+        "contentHash": "HZwPd87CCFAlqrxkwjQrHW/ZIsOIoQuT07Mnu8duW2GF+E+P+yKRJAiq0DjDjAJKln+Ni9zQyDI2Zt+/ull1pw=="
       },
       "Microsoft.Extensions.Logging": {
         "type": "Transitive",
