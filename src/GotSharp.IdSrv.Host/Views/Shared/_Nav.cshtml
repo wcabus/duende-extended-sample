@@ -38,7 +38,7 @@
                 showImpersonationMenuItem = await _impersonationService.IsCurrentUserAllowedToImpersonateUsers(User);
             }
 
-            showMfaMenuItem = await _featureManager.IsEnabledAsync(FeatureToggles.MFA);
+            showMfaMenuItem = isLocalUser && await _featureManager.IsEnabledAsync(FeatureToggles.MFA);
         }
     }
 }

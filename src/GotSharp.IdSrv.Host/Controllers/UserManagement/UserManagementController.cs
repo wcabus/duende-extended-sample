@@ -388,6 +388,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
+
             var vm = await BuildMultiFactorAuthenticationViewModelAsync(user);
             return View(vm);
         }
@@ -401,6 +406,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             if (await _userManager.GetTwoFactorEnabledAsync(user))
@@ -420,6 +430,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             if (await _userManager.GetTwoFactorEnabledAsync(user))
@@ -450,6 +465,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
+
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
                 return RedirectToAction("MultiFactorAuthentication");
@@ -471,6 +491,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             var result = await _userManager.SetTwoFactorEnabledAsync(user, false);
@@ -496,6 +521,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
+
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
                 return RedirectToAction("MultiFactorAuthentication");
@@ -517,6 +547,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
@@ -545,6 +580,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
+
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
                 return RedirectToAction("MultiFactorAuthentication");
@@ -562,6 +602,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
@@ -585,6 +630,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
+
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
                 return RedirectToAction("MultiFactorAuthentication");
@@ -603,6 +653,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
@@ -678,6 +733,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
@@ -690,6 +750,11 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
             if (user is null)
             {
                 return BadRequest();
+            }
+
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
             }
 
             await _userManager.ResetAuthenticatorKeyAsync(user);
@@ -712,6 +777,10 @@ namespace GotSharp.IdSrv.Host.Controllers.UserManagement
                 return BadRequest();
             }
 
+            if (user.IsExternalUser())
+            {
+                return RedirectToAction("Index");
+            }
 
             if (!await _userManager.GetTwoFactorEnabledAsync(user))
             {
