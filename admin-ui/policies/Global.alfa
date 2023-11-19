@@ -13,11 +13,14 @@ namespace AdminUI.AccessPolicy {
 
     //client
     //protectedResource
+    //scope
     //identityResource
     //user
     //claimType
     //role
     //audit
+    //serverSideSession
+    //dynamicAuthentication
     
     //This is for the user settings endpoint detailed here: https://www.identityserver.com/articles/adminuis-user-settings-endpoints
     //this is only protected by the "admin_ui_public" scope at the moment 
@@ -104,7 +107,8 @@ namespace AdminUI.AccessPolicy {
     {
         apply denyUnlessPermit
         target clause ResourceType == "user" or
-        ResourceType == "role"
+        ResourceType == "role" or 
+        ResourceType == "sessionManagement"
         
         rule fullAccess {
             permit
@@ -122,7 +126,9 @@ namespace AdminUI.AccessPolicy {
         apply denyUnlessPermit
         target clause ResourceType == "client" or
         ResourceType == "protectedResource" or
-        ResourceType == "identityResource"
+        ResourceType == "identityResource" or 
+        ResourceType == "scope" or
+        ResourceType == "dynamicAuthentication"
         
         rule fullAccess{
             permit

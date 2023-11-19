@@ -9,12 +9,15 @@
     "False": "false",
     "Edit": "Edit",
     "Cancel": "Cancel",
+    "Confirm": "Confirm",
     "Clear": "Clear",
     "Reset": "Reset",
     "Save": "Save",
+    "Update": "Update",
     "SaveAndAdd": "Save & Add Another",
     "SaveAll": "Save All",
     "Saved": "Saved",
+    "Scheme": "Scheme",
     "DontSave": "Don't Save",
     "Enabled": "Enabled",
     "Disabled": "Disabled",
@@ -22,6 +25,9 @@
     "Removed": "Removed",
     "Advanced": "Advanced",
     "Custom": "Custom",
+    "Test": "Test",
+    "ValidateCert": "Validate Certificate",
+    "ValidateMetadata": "Validate Metadata",
     "Or": "Or",
     "DisplayName": "Display Name",
     "DisplayURL": "Display URL",
@@ -43,6 +49,7 @@
     "EmphasizeReadOnly": "Is Resource Emphasized On Consent Screen",
     "MustBeHttpsInProduction": "These protocols rely upon TLS in production",
     "LicenseIsInGracePeriod": "Your license has expired, please renew your subscription by {0} in order to keep using AdminUI",
+    "QuotaLimit": "You have reached/exceeded the {{limit}} \"{{type}}\" limit with AdminUI Starter. <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"{{href}}\" target=\"_blank\">Upgrade</a> to manage unlimited \"{{type}}\".",
     "Back": "Back",
     "Next": "Next",
     "Submit": "Submit",
@@ -61,6 +68,7 @@
     "Added": "Added",
     "Expires": "Expires",
     "Reserved": "Reserved",
+    "OverQuota": "Over quota, in order to use please reduce below, ",
     "Secrets": "Secrets",
     "GenerateRandom": "Generate a random 32char string",
     "Restrictions": "Restrictions",
@@ -87,7 +95,7 @@
     "DatePicker": "datepicker",
     "Boolean": "boolean",
     "Text": "text",
-    "Search": "Search...",
+    "Search": "Search term",
     "Authenticating": "Authenticating",
     "Loading": "Loading",
     "LoadingPleaseWait": "Loading, please wait...",
@@ -96,6 +104,7 @@
     "CompanyName": "Rock Solid Knowledge Ltd",
     "AppName": "IdentityExpress AdminUI",
     "Policy": "Access Policy",
+    "PolicyWithUTCNotice": "Access Policy<br/>Dates selected are in UTC",
     "ShowMore": "Show more",
     "ShowLess": "Show less",
     "Minute": "min",
@@ -143,6 +152,7 @@
       "AreYouSureSimple2": "Are you sure you want to delete the",
       "AreYouSureSimple3": "Are you sure you want to delete this?",
       "Warning": "Warning: This action cannot be undone",
+      "FinalScopeOnResourceWarning": "Warning: Deleting this scope will remove it from the database. This action cannot be undone.",
       "No": "No, don't delete"
     },
     "Types": {
@@ -175,8 +185,18 @@
     "ReadOnly": "Read Only",
     "UserTOTPEnabled": "User has TOTP enabled", 
     "NoValue": "No value",
+    "NoValues": "No values",
     "SameSiteCookiesError": "Your browser does not support SameSite cookies. AdminUI's security model relies on the use of SameSite cookies to defend against Cross-Site Request Forgery (CSRF). For more information <a href='{{link}}' target='_blank'>read about SameSite cookies</a>.",
-    "SameSiteCookiesBannerError": "Your browser does not support SameSite cookies. AdminUI's security model relies on the use of SameSite cookies to defend against Cross-Site Request Forgery (CSRF). Please consider upgrading your browser to a browser with the latest technologies. "
+    "SameSiteCookiesBannerError": "Your browser does not support SameSite cookies. AdminUI's security model relies on the use of SameSite cookies to defend against Cross-Site Request Forgery (CSRF). Please consider upgrading your browser to a browser with the latest technologies. ",
+    "Dates": {
+      "UTCWarning": "Dates selected are in UTC"
+    },
+    "Wizards": {
+      "Review": "A chance to review before submitting",
+      "Empty": "Oops... Seems like an unexpected error has occurred"
+    },
+    "ComingSoon": "Coming Soon",
+    "DPoP": "DPoP"
   },
   "Nav": {
     "SkipToContent": "Skip to content",
@@ -199,6 +219,7 @@
     "ProtectedResources": "Protected Resources",
     "Claims": "Claims",
     "Secrets": "Secrets",
+    "Advanced": "Advanced",
     "Auditing": "Auditing",
     "Audits": "Audits",
     "Account": "Account",
@@ -217,6 +238,8 @@
     "Next": "Next",
     "Last": "Last",
     "Details": "Details",
+    "Request": "Request",
+    "Response": "Response",
     "Scopes": "Scopes",
     "Authentication": "Authentication",
     "Applications": "Applications",
@@ -227,11 +250,15 @@
     "AccessPolicy": "Access Policy",
     "IdentityServer": "IdentityServer Management",
     "UserManagement": "User Management",
+    "SessionManagement": "Session Management",
     "Saml": "SAML",
     "WsFed": "WS-Fed",
     "Properties": "Properties",
     "Keys": "Keys",
-    "Webhooks": "Webhooks"
+    "Webhooks": "Webhooks",
+    "DynamicAuth": "Dynamic Authentication",
+    "SP": "Service Provider (SP)",
+    "IdP": "Identity Provider (IdP)"
   },
   "Errors": {
     "NotFoundTitle": "Error 404",
@@ -280,6 +307,7 @@
   "Users": {
     "Title": "Users",
     "Singular": "User",
+    "SearchPlaceholder": "Username, full name, or email starts with...",
     "AddUser": "Add User",
     "NewUser": "New User",
     "SearchUser": "Search for a user...",
@@ -342,7 +370,9 @@
       "RevokeUserConfirm": "This will revoke the access of",
       "ForUser": "for user",
       "RevokeYes": "Yes, Revoke Application"
-    }
+    },
+    "LockoutEnabled": "Lockout Enabled",
+    "LockoutEnd": "Lockout End"
   },
   "UserDetails": {
     "EnabledTwoFactor": "Enable ASP.NET Identity two-factor authentication",
@@ -385,6 +415,7 @@
     "RevokeLoginConfirmationText": "Are you sure you want to revoke this External Login"
   },
   "Roles": {
+    "SearchPlaceholder": "Role name contains...",
     "Role": "Role",
     "NewRole": "New Role",
     "AddRole": "Add Role",
@@ -445,6 +476,7 @@
     "AllowedValues": "Allowed Values"
   },
   "Resources": {
+    "SearchPlaceholder": "Resource name or id contains...",
     "AddResource": "Add Resource",
     "ResourceID": "Resource ID",
     "ResourceStatus": "Resource Status",
@@ -464,6 +496,7 @@
     "Required": "Is Consent Required",
     "AssignedClaims": "Assigned Claims",
     "AssignedResources": "Assigned Resources",
+    "Failed": "Failed to update resource",
     "Scope": {
       "NewScope": "New Scope for",
       "DisplayName": "Scope name that will be seen on consent screens",
@@ -480,8 +513,16 @@
     }
   },
   "ClaimTypes": {
+    "SearchPlaceholder": "Claim type name contains...",
     "NameHelp": "The name used to identify the claim type",
-    "DisplayNameHelp": "A friendly name for the claim type"
+    "DisplayNameHelp": "A friendly name for the claim type",
+    "TooManyAllowedValues": "Too many values to display",
+    "TypeaheadHelp": "Too many options, type to filter...",
+    "AllowedValuesFiltering": {
+      "FilteringAllowedValues": "An error occured when filtering allowed values for claim type.",
+      "NothingFound": "Nothing found!",
+      "TooManyFound": "Found too many possible values, please continue filtering."
+    }
   },
   "IdentityResources": {
     "Title": "Identity Resources",
@@ -508,22 +549,22 @@
     "Secrets": "Enter some secrets for introspection (optional)",
     "UserClaimTypes": "User claim types to be included in tokens. Applies to all scopes for the resource.",
     "AddScope": "Add Scope",
+    "AddSharedScope": "Assign Shared Scopes",
     "ProtectedResource": "protected resource?",
     "ClientAccess": "Select the Protected Resources this client can access",
     "NoneFound": "No protected resources found",
     "UpdatedResource": "Updated Resource Successfully"
   },
   "Clients": {
+    "SearchPlaceholder": "Client name starts with...",
     "ID": "Client ID",
     "EntityId": "Entity ID",
     "Realm": "Realm",
     "Title": "Client",
-    "Created": "Created",
     "Add": "Add Client",
     "EnterBasicDetails": "Enter some basic details",
     "IDHelp": "The unique identifier for this application",
     "Secrets": "Enter some secrets",
-    "Review": "A chance to review before submitting",
     "DisplayNameHelp": "Friendly name for this client application",
     "DisplayURLHelp": "Application URL that will be seen on consent screens",
     "LogoURLHelp": "Application logo that will be seen on consent screens. These protocols rely upon TLS in production",
@@ -537,6 +578,7 @@
     "LogoutURLDescription": "Users can be returned to this URL after logging out. These protocols rely upon TLS in production",
     "IdentityResourcesAccess": "Select the Identity Resources this client can access",
     "ProtectedResourcesAccess": "Select the Protected Resources this client can access",
+    "ScopePickerSharedScopeWarning": "(*) Used by more than one Protected Resource",
     "Setup": "Setup a Client Application",
     "SelectType": "Select the type of application you want to create",
     "NoClaims": "No claims found for this client",
@@ -586,6 +628,7 @@
     "Import": {
       "Import": "Import",
       "ImportClients": "Import clients",
+      "ImportExportClients": "Import/Export Clients",
       "Wizard": {
         "Setup": {
           "Title": "Import Clients",
@@ -1094,7 +1137,20 @@
       "URLAddUnsuccessful": "There was a problem adding your URL",
       "AddURL": "Add URL",
       "EditApplicationURLs": "Edit Application URLs",
-      "EditApplicationURL": "Edit Application URL"
+      "EditApplicationURL": "Edit Application URL",
+      "InitiateLogin": {
+        "Label": "Initiate Login URI",
+        "Help": "Optional, must also start with 'https://'"
+      }
+    },
+    "DPoP": {
+      "ValidationMode": {
+        "Label": "Validation Mode"
+      },
+      "ClockSkew": {
+        "Label": "Clock Skew",
+        "Help": "Used when validating proof tokens 'iat' claim value for this client"
+      }
     },
     "Selected": "(Selected)",
     "Endpoint": "Endpoint",
@@ -1111,6 +1167,274 @@
     "BindingType": "Binding Type",
     "BindingTypeHelp": "Binding type for the endpoint",
     "IndexHelp": "Index of the endpoint"
+  },
+  "DynamicAuth": {
+    "SearchPlaceholder": "Scheme or Name start with...",
+    "Title": "Dynamic Authentication",
+    "Filters": {
+      "OIDC": "OIDC",
+      "SAML": "SAML",
+      "Enabled": "Enabled",
+      "Disabled": "Disabled"
+    },
+    "Scheme": {
+      "Label": "Scheme",
+      "Help": "The unique identifier for this provider"
+    },
+    "DisplayName": {
+      "Label": "Display Name",
+      "Help": "Friendly name for this provider"
+    },
+    "Authority": {
+      "Label": "Authority URL",
+      "Help": "The URL where the provider is hosted. Must start with 'https://'",
+      "ReachableWarningTitle": "Authority Validation",
+      "ReachableWarningMsg": "Unable to obtain discovery document at standard endpoint, could mean this authority is invalid."
+    },
+    "ClientId": {
+      "Label": "Client ID",
+      "Help": "Client identifier from the external provider"
+    },
+    "CallbackPath": {
+      "Label": "Callback Path",
+      "Help": "ACS endpoint"
+    },
+    "Flow": {
+      "Label": "OAuth Flow",
+      "Help": "Choose authentication flow used by provider"
+    },
+    "Flows": {
+      "AuthCode": "Authorization code flow",
+      "AuthCodePlusPkce": "Authorization code flow + PKCE"
+    },
+    "Scopes": {
+      "Label": "Scopes",
+      "Placeholder": "Enter scope...",
+      "AlreadyAdded": "This scope has already been added",
+      "MustSpecifyScope": "Scope not specified",
+      "CannotHaveSpaces": "Scopes cannot contain whitespaces",
+      "NoScopesMessage": "No scopes have been added"
+    },
+    "SignInScheme": {
+      "Label": "Sign In Scheme",
+      "Help": "This setting could be overridden, you can learn more <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Saml_Dynamic_Provider.html#identityserver-overriding-sign-inout-schemes\" target=\"_blank\">here</a>.",
+      "Placeholder": "Enter Sign-In scheme...",
+      "IdSExternalLogin": {
+        "Name": "IdentityServer External Login Scheme",
+        "Help": "'Idsrv.External' Use this if you are using the IdentityServer Default cookies"
+      },
+      "AspNetExternalLogin": {
+        "Name": "Asp.Identity External Login Scheme",
+        "Help": "'Identity.External' Use this if you are using the Asp.Identity Default Cookies"
+      }
+    },
+    "DifferentSignOut": {
+      "Label": "Different Sign Out Scheme",
+      "Help": "Set Different Sign Out Scheme"
+    },
+    "SignOutScheme": {
+      "Label": "Sign Out Scheme",
+      "Help": "This setting could be overridden, you can learn more <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Saml_Dynamic_Provider.html#identityserver-overriding-sign-inout-schemes\" target=\"_blank\">here</a>.",
+      "Placeholder": "Enter Sign-Out scheme..."
+    },
+    "ClientSecret": {
+      "Label": "Client Secret",
+      "Help": "Optional secret used when authenticating with external provider"
+    },
+    "RemoteSignOutPath": {
+      "Label": "RemoteSignOutPath"
+    },
+    "SignedOutRedirectUri": {
+      "Label": "SignedOutRedirectUri"
+    },
+    "SignedOutCallbackPath": {
+      "Label": "Signed Out Callback Path",
+      "Help": "SLO endpoint"
+    },
+    "ResponseMode": {
+      "Label": "Response Mode"
+    },
+    "RefreshOnIssuerKeyNotFound": {
+      "Label": "Refresh Metadata On Issuer Key Not Found",
+      "Help": "Metadata refresh will occur on key rollover"
+    },
+    "GetClaimsFromUserInfoEndpoint": {
+      "Label": "Get Claims From User Info Endpoint",
+      "Help": "Retrieve additional claims from the user info endpoint after creating an identity from id_token"
+    },
+    "SaveTokens": {
+      "Label": "Save Tokens",
+      "Help": "Defines whether access and refresh tokens should be stored as a cookie in the browser after a successful authentication."
+    },
+    "UseTokenLifetime": {
+      "Label": "Use Token Lifetime",
+      "Help": "Authentication session lifetime (e.g. cookies) should match that of the authentication token."
+    },
+    "SkipUnrecognizedRequests": {
+      "Label": "Skip Unrecognized Requests",
+      "Help": "Skip requests sent to the Callback method that don't include authorization data. Disabling this and setting the CallbackPath to a dedicated endpoint may provide better error handling."
+    },
+    "DisableTelemetry": {
+      "Label": "Disable Telemetry",
+      "Help": "Send the assembly version of the IdentityModel package as an authorization/logout request parameter."
+    },
+    "EntityId": {
+      "Label": "SP Entity Id",
+      "Help": ""
+    },
+    "CallbackPathAcsEndpoint": {
+      "Label": "Callback path (ACS endpoint)",
+      "Help": ""
+    },
+    "CertFile": {
+      "Label": "Certificate",
+      "Help": "Accepts PFX and P12 formats"
+    },
+    "CertPassword": {
+      "Label": "Certificate Password",
+      "Help": ""
+    },
+    "UploadCert": "Upload Cert",
+    "ChangeCert": "Change Cert",
+    "List": {
+      "None": "No dynamic providers found"
+    },
+    "UpdateClientSecret": {
+      "Title": "Update Client Secret",
+      "Description": "Add here your new Client Secret",
+      "Confirm": "Update",
+      "No": "No, don't update"
+    },
+    "UpdateSigningCertificate": {
+      "Title": "Update Signing certificate"
+    },
+    "UpdateEncryptionCertificate": {
+      "Title": "Update Encryption certificate"
+    },
+    "FederationPathWarning": "The path must start with /federation/",
+    "Wizard": {
+      "Setup": "Setup a Dynamic Authentication provider",
+      "Title": "Add a Dynamic Authentication provider",
+      "TypeSelectStep": {
+        "OIDC": {
+          "Name": "OIDC Provider",
+          "Title": "OpenID Connect Provider",
+          "Description":  "A provider that uses OpenID Connect to authenticate a user. <br/>Documentation adding providers is <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Oidc_Dynamic_Provider.html\" target=\"_blank\">here</a>."
+        },
+        "SAML": {
+          "Name": "SAML Provider",
+          "Title": "Security Assertion Markup Language",
+          "Description": "A provider that uses SAML to authenticate a user. <br/>Documentation adding providers is <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Saml_Dynamic_Provider.html\" target=\"_blank\">here</a>."
+        },
+        "TypeLabel": "Dynamic Authentication Provider Type"
+      },
+      "NameRoleStep": {
+        "Title": "Define scheme and display name of your dynamic provider"
+      },
+      "SignInSchemeStep": {
+        "Title": "Set your sign-in scheme"
+      },
+      "SummaryStep": {
+        "Title": "A chance to review before submitting",
+        "Actions": "edit",
+        "Edit": "edit"
+      },
+      "OIDC": {
+        "Setup": "Setup an OpenID Connect Dynamic provider",
+        "Title": "OpenID Connect Provider",
+        "ConnectionStep": {
+          "Title": "Connect to your external Dynamic provider"
+        },
+        "ScopesStep": {
+          "Title": "Scopes to request"
+        },
+        "ClientSecretStep": {
+          "Title": "Set your shared client secret"
+        }
+      },
+      "SAML": {
+        "Setup": "Setup a SAML Dynamic Provider",
+        "Title": "SAML Provider",
+        "ServiceProviderStep": {
+          "Title": "Define the service provider (that's you)"
+        },
+        "SigningStep": {
+          "Title": "Select certificate to sign requests or click 'Next' to skip"
+        },
+        "ExternalProviderStep": {
+          "Title": "External IdP Setup",
+          "MetadataValidTitle": "IdP Metadata Address Validation Success",
+          "MetadataValidMsg": "External identity provider metadata address exists and returns valid IdP metadata file.",
+          "MetadataInValidTitle": "IdP Metadata Address Validation Failed",
+          "MetadataInValidMsg": "External identity provider metadata address either does not exist or is returning an invalid metadata file."
+        }
+      }
+    },
+    "Success": {
+      "Updated": "Updated DynamicAuth Successfully"
+    },
+    "SPEntityID": {
+      "Label": "SP Entity ID",
+      "Help": "Unique identifier for this Service Provider"
+    },
+    "SpMetadataAddress": {
+      "Label": "SP Metadata Path",
+      "Help": "Metadata Path of this Service Provider"
+    },
+    "SAML": {
+      "RequireEncryptedAssertions": {
+        "Label": "Require Encrypted Assertions",
+        "Help": "Sign-on Response validation will fail if the response does not contain encrypted assertions"
+      },
+      "RequireSignedAssertions": {
+        "Label": "Require Signed Assertions",
+        "Help": "Sign-on response validation will fail if the response does not contain signed assertions"
+      },
+      "SignAuthenticationRequests": {
+        "Label": "Sign Authentication Requests",
+        "Help": "The service provider will always sign generated requests"
+      },
+      "RequireValidMetadataSignature": {
+        "Label": "Require Valid Metadata Signature",
+        "Help": "Require IdP metadata to pass signature validation"
+      },
+      "IdpMetadataAddress": {
+        "Label": "IdP Metadata Address",
+        "Help": "Must start with 'https://'",
+        "ReachableWarning": "Unable to reach the address"
+      },
+      "AllowIdpInitiatedSso": {
+        "Label": "Allow IdP Initiated SSO",
+        "Help": "Allows single sign-on to be initiated by the Identity Provider (not recommended)"
+      },
+      "IdPInitiatedSsoCompletionPath": {
+        "Label": "IdP Initiated SSO Completion Path",
+        "Help": "Endpoint to redirect to upon successful IdP-initiated SSO"
+      },
+      "TimeComparisonTolerance": {
+        "Label": "Time Comparison Tolerance",
+        "Help": "In seconds"
+      }
+    },
+    "RequestSigningSignature": {
+      "Label": "Request Signing Signature",
+      "Help": "Signed Certificate of this Service Provider",
+      "Subject": {
+        "Label": "Subject"
+      },
+      "ThumbPrint": {
+        "Label": "ThumbPrint"
+      },
+      "Expiration": {
+        "Label": "Expiration date"
+      },
+      "Options": {
+        "Add": "Add Certificate",
+        "Replace": "Replace Certificate",
+        "Delete": "Delete Certificate",
+        "NoCertificate": "No Certificate found"
+      }
+    }
   },
   "Secret Picker": {
     "Set Expiration Button": "Set optional expiration",
@@ -1134,6 +1458,8 @@
     "Saving Success Title": "Success",
     "Saving Success Message": "Your changes have been saved",
     "SuccessfullyCreated": "Successfully Created",
+    "SuccessfullySaved": "Successfully Saved",
+    "SuccessfullyDeleted": "Successfully Deleted",
     "UsernameTaken": "Username already taken",
     "AccountCreated": "Account Created",
     "AllAppsRevoked": "All Apps Successfully Revoked",
@@ -1152,7 +1478,11 @@
     "Notice": "Notice",
     "DontForgetToSave": "Don't forget to save your changes",
     "Error": "Error",
-    "Unauthorized": "Unauthorized"
+    "Unauthorized": "Unauthorized",
+    "CertValidTitle": "Certificate Validation Succeeded",
+    "CertInValidTitle": "Certificate Validation Failed",
+    "CertInValidMsg": "Certificate or password are incorrect, please try again making sure to upload a .p12 or .pfx file with correct password. Or click 'Clear' and 'Next' to skip this step.",
+    "StarterModeFailed" : "Starter Mode could not be activated"
   },
   "Settings": {
     "Title": "Settings",
@@ -1218,9 +1548,9 @@
     "Description": "Description",
     "Succeeded": "Succeeded",
     "ToggleDetails": "Toggle details",
-    "FromDate": "From date",
+    "FromDate": "From date (UTC)",
     "FromDateWarning": "From date cannot be in the future",
-    "ToDate": "To date",
+    "ToDate": "To date (UTC)",
     "ToDateBehindWarning": "To date cannot be before from date",
     "SetDateToday": "Set date to today",
     "Today": "Today",
@@ -1273,6 +1603,7 @@
     "MultiFactorHeading": "Multi-factor Authentication Reset",
     "PasswordResetHeading": "Password Reset",
     "UserRegistrationHeading": "User Registration",
+    "ServerSideSessionDeleteHeading": "Server Side Session Deletion",
     "WebhookConfigurationUpdated": "Webhook Configuration Updated",
     "ClientCreationWarningTitle": "Client Creation",
     "ClientCreationWarningDescription": "Enabling webhooks will create a client, do you wish to continue?",
@@ -1284,8 +1615,63 @@
     "LoginMessage": "You can now log into AdminUI and manage your IdentityServer solution.",
     "EmbeddedCredentialsWarning": " Before you can get started with AdminUI, you need to create a administrator as the current login uses insecure embedded credentials.",
     "PasswordHashMessage": "User passwords are created using the default ASP.NET Identity hashing algorithm.",
-    "PermissionsInfoMessage": " For more information on the role and permissions your user will have, see our <a class='tw-inline-block tw-text-blue-500 hover:tw-text-body trans' href='https://www.identityserver.com/documentation/adminui/Access_Policy/Access_Policy/' target='_blank'> Access Policy Docs</a>",
+    "PermissionsInfoMessage": " For more information on the role and permissions your user will have, see our <a class='tw-inline-block tw-text-blue-500 hover:tw-text-body trans' href='documentation/adminui/Access_Policy/Access_Policy/' target='_blank'> Access Policy Docs</a>",
     "ReminderMessage": "You database still contains the default AdminUI Administrator. Please remove.",
     "Resolve": "Resolve"
+  },
+  "SessionManagement": {
+    "Created": "Created",
+    "Expires": "Expires",
+    "Renewed": "Renewed",
+    "Scheme": "Scheme",
+    "NoExpiration": "Sessions Has No Expiration",
+    "NotRenewed": "Session Not Renewed",
+    "NoSessionsFound": "No Sessions Found"
+  },
+  "StarterMode": {
+    "RequiresUpgrade": "Requires upgrade from starter license",
+    "UpgradeAdminUI": "Upgrade to AdminUI Enterprise",
+    "ExtendDemo": "Extend Demo License",
+    "ConfirmStarterMode": "Confirm Starter Mode",
+    "Warning": "You are now in Starter mode. Authentication is disabled.",
+    "Consent": {
+      "Title": "Your AdminUI Demo license has expired",
+      "Description": "Upon confirming Starter Mode, AdminUI will transition to a free Starter license. The following restrictions will apply:",
+      "Features": {
+        "Authentication": "Authentication will be removed",
+        "Clients": "The number of Client applications is capped at 3",
+        "ClientFlows": "Only Auth Code + PKCE and Machine to Machine client flows are supported",
+        "Users": "The number of Users is capped at 10",
+        "Import": "Import and Export of Client configuration are not supported",
+        "Audits": "Audit logs cannot be viewed or managed",
+        "DynamicAuth": "Dynamic Authentication Providers cannot be managed"
+      },
+      "NonAdminUser": "You are not an admin user. Only an admin user can activate Starter Mode."
+    },
+    "ConfirmationModal": {
+      "Title": "Confirm AdminUI Starter Mode",
+      "Description": "AdminUI will now log you out and refresh, you will then be able to simply click login to access AdminUI without authentication with the configured IdentityServer.",
+      "Warning": "WARNING: THIS SHOULD NOT BE DONE FOR PRODUCTION ENVIRONMENTS"
+    },
+    "Teaser": {
+      "Title": "Upgrade to AdminUI Enterprise",
+      "TitleWithFeature": "Upgrade to AdminUI Enterprise to benefit from {0}",
+      "Description": "Fully unlock AdminUI's potential to support your IdentityServer solution and have access to:",
+      "RedirectedDescription": "Get {0} and other benefits by fully unlocking AdminUI's potential. Support your IdentityServer solution and have access to:",
+      "Features": {
+        "Authentication": "Secure authentication into AdminUI",
+        "UsersAndClients": "Managing unlimited users and client applications",
+        "ExtraClientFlows": "Managing additional client application flows",
+        "Access": "Fine grained access control of AdminUI",
+        "Import": "Import and export of client configuration across environments",
+        "Audits": "Full auditable control of AdminUI and IdentityServer operations",
+        "DynamicAuth": "Managing Dynamic Authentication Providers"
+      }
+    },
+    "Clients": {
+      "Basic": "Basic setup",
+      "Enterprise": "Enterprise setup",
+      "ExtraClientFlows": "more Client application flows"
+    }
   }
 }

@@ -23,39 +23,182 @@
             <param name="context"></param>
             <returns></returns>
         </member>
-        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Adds AdminUI and its related services to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
-            </summary>
-            <param name="services">The service collection being initialised.</param>
-            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder">IdentityStoreBuilder for configuring a custom identity store.</returns>
-        </member>
-        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIOptions})">
-            <summary>
-            Adds AdminUI and its related services to the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
-            </summary>
-            <param name="services">The service collection being initialised.</param>
-            <param name="options" cref="T:System.Action`1">Additional AdminUI configuration options.</param>
-            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder">IdentityStoreBuilder for configuring a custom identity store.</returns>
-        </member>
-        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.UseAdminUI(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
-            <summary>
-            Adds the AdminUI dependent middleware to the specified <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.
-            </summary>
-            <param name="appBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
-            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</returns>
-            <exception cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIRegistrationException">Thrown when <see cref="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/> has not been called in the service configuration.</exception>
-        </member>
-        <member name="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder">
+        <member name="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder">
             <summary>
             Allows you do register methods to configure a custom user store
             </summary>
         </member>
-        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.IdentityStoreBuilder.WithIdentityStore``1">
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder.WithIdentityStore``1">
             <summary>
             Used to define a custom implementation of <see cref="T:Rsk.CustomIdentity.Interfaces.ISSOStoreFactory"/> to be used in AdminUI.
             </summary>
             <typeparam name="TStoreFactory">The concrete implementation of <see cref="T:Rsk.CustomIdentity.Interfaces.ISSOStoreFactory"/>.</typeparam>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder.WithConnectionFactory``1">
+            <summary>
+            Used to define a custom implementation of <see cref="T:IdentityExpress.Manager.UI.Extensions.IDatabaseConnectionFactory"/> to be used in AdminUI.
+            </summary>
+            <typeparam name="TConnectionFactory">The concrete implementation of <see cref="T:IdentityExpress.Manager.UI.Extensions.IDatabaseConnectionFactory"/>.</typeparam>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIOptions})">
+            <summary>
+            Adds AdminUI services to a <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Intended for use by developers using the AdminUI Nuget package.
+            This version will get deprecated eventually. It is currently here for backwards compatability.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> having AdminUI services added.</param>
+            <param name="options">Additional <see cref="T:System.Action`1"/> for AdminUI configuration.</param>
+            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder"> to further configure AdminUI services.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUISettings)">
+            <summary>
+            Adds AdminUI services to a <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Intended for use by developers using the AdminUI Nuget package.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> having AdminUI services added.</param>
+            <param name="settings">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUISettings"/> containing AdminUI configuration settings.</param>
+            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder"> to further configure AdminUI services.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUISettings,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIMigrationSettings)">
+            <summary>
+            Adds AdminUI services to a the <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Intended for use by the AdminUI standalone app.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> having AdminUI services added.</param>
+            <param name="settings">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUISettings"/> containing AdminUI configuration settings.</param>
+            <param name="migrationSettings">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIMigrationSettings"/> containing AdminUI migration configuration settings.</param>
+            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder"> to further configure AdminUI services.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUISettings,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIMigrationSettings,System.Action{IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIOptions},System.Boolean)">
+            <summary>
+            Adds AdminUI services to a <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            Used by both the AdminUI standalone app and by developers using the AdminUI Nuget package.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> having AdminUI services added.</param>
+            <param name="settings">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUISettings"/> containing AdminUI configuration settings.</param>
+            <param name="migrationSettings">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIMigrationSettings"/> containing AdminUI migration configuration settings.</param>
+            <param name="options">Additional <see cref="T:System.Action`1"/> for additional AdminUI configuration options.</param>
+            <param name="usingAdminUIPackage" cref="T:System.Boolean">Are we using the AdminUI Nuget package (true) or are we the AdminUI standalone app (false)</param>
+            <returns cref="T:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIBuilder"> to further configure AdminUI services.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.UseAdminUI(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds AdminUI middleware to the <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.
+            </summary>
+            <param name="appBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> having AdminUI middleware added.</param>
+            <returns><see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to further configure AdminUI middleware.</returns>
+            <exception cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIRegistrationException">Thrown when <see cref="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.AddAdminUI(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{IdentityExpress.Manager.BusinessLogic.Configuration.AdminUIOptions})"/> has not been called to configuration AdminUI services.</exception>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunMigrations(Microsoft.AspNetCore.Builder.WebApplication,IdentityExpress.Manager.MigrationRunner.MigrationType,System.Boolean,System.Nullable{IdentityExpress.Manager.DatabaseType},System.Int32,System.String)">
+            <summary>
+            Runs AdminUI migrations for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>. Intended for use by developers using the AdminUI Nuget package.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI migrations for.</param>
+            <param name="migrationType">The <see cref="T:IdentityExpress.Manager.MigrationRunner.MigrationType"/> specifying which migrations to run.</param>
+            <param name="takeControl">Should migration history be inserted.</param>
+            <param name="databaseType">The <see cref="T:IdentityExpress.Manager.DatabaseType"/> specifying which database provider to use for the migrations.</param>
+            <param name="timeout">The timeout length in seconds for the migrations.</param>
+            <param name="migrationConnectionString">The connection string to use for migrations (only relevant if using default connection factory).</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> to await when the migrations are complete.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunBootstrapper(Microsoft.AspNetCore.Builder.WebApplication)">
+            <summary>
+            Runs AdminUI bootstrap for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>. Intended for use if bootstrap is disabled on startup.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI migrations for.</param>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunMigrations(Microsoft.AspNetCore.Builder.WebApplication,System.String[])">
+            <summary>
+            Runs AdminUI migrations for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>. Intended for use by the AdminUI standalone app.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI migrations for.</param>
+            <param name="args">The arguments specifying migrations parameters.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> to await when the migrations are complete.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunConnectionCheck(Microsoft.AspNetCore.Builder.WebApplication,System.String)">
+            <summary>
+            Runs a connection check on the database connections used by AdminUI migrations. Intended for use by developers using the AdminUI Nuget package.
+            </summary>
+            <param name="app">The AdminUI <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to check connections for.</param>
+            <param name="connectionString">The connection string to use for migrations (only relevant if using default connection factory).</param>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunConnectionCheck(Microsoft.AspNetCore.Builder.WebApplication,System.String[])">
+            <summary>
+            Runs a connection check on the database connections used by AdminUI migrations. Intended for use by the AdminUI standalone app.
+            </summary>
+            <param name="app">The AdminUI <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to check connections for.</param>
+            <param name="args">The arguments specifying database check parameters.</param>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunSchemaCheck(Microsoft.AspNetCore.Builder.WebApplication,IdentityExpress.Manager.MigrationRunner.MigrationType,System.Nullable{IdentityExpress.Manager.DatabaseType},System.String)">
+            <summary>
+            Runs AdminUI schema checks for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>. Intended for use by developers using the AdminUI Nuget package.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI schema checks for.</param>
+            <param name="schemaType">The <see cref="T:IdentityExpress.Manager.MigrationRunner.MigrationType"/> specifying which schemas to check.</param>
+            <param name="databaseType">The <see cref="T:IdentityExpress.Manager.DatabaseType"/> specifying which database provider to use for the schema checks.</param>
+            <param name="migrationConnectionString">The connection string to use for schema checks (only relevant if using default connection factory).</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> to await when the schema checks are complete.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunSchemaCheck(Microsoft.AspNetCore.Builder.WebApplication,System.String[])">
+            <summary>
+            Runs AdminUI schema checks for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>. Intended for use by the AdminUI standalone app.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI schema checks for.</param>
+            <param name="args">The arguments specifying schema check parameters.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/> to await when the schema checks are complete.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunLicenseKeyValidation(Microsoft.AspNetCore.Builder.WebApplication,System.String)">
+            <summary>
+            Runs AdminUI license key validation for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>. Intended for use by developers using the AdminUI Nuget package.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI schema checks for.</param>
+            <param name="licenseKey">The license key to check.</param>
+            <returns>The success or failure code.</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.DependencyInjection.AdminUIExtensions.RunLicenseKeyValidation(Microsoft.AspNetCore.Builder.WebApplication,System.String[])">
+            <summary>
+            Runs AdminUI license key validation for the <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/>.. Intended for use by the AdminUI standalone app.
+            </summary>
+            <param name="app">The <see cref="T:Microsoft.AspNetCore.Builder.WebApplication"/> to run AdminUI schema checks for.</param>
+            <param name="args">The arguments specifying license check parameters.</param>
+            <returns>The success or failure code.</returns>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Extensions.ConfigurationExtensions">
+            <summary>
+            Extension methods for adding AzureKeyVault to AdminUI using the configuration provided
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Extensions.ConfigurationExtensions.AddKeyVaultDefault">
+            <summary>
+            Wrapper around AddAzureKeyVault taking a vault URI and TokenCredentials object
+            </summary>
+        </member>
+        <member name="P:IdentityExpress.Manager.UI.Extensions.ConfigurationExtensions.AddKeyVaultUsingSecret">
+            <summary>
+            Wrapper around AddAzureKeyVault taking a vault URI, tenantId, clientId, clientSecret
+            </summary>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.ConfigurationExtensions.TryAddAzureKeyVault(Microsoft.Extensions.Configuration.IConfigurationBuilder)">
+            <summary>
+            Attempts to add AzureKeyVault to configuration object using configuration value
+            </summary>
+            <param name="builder"></param>
+            <exception cref="T:IdentityExpress.Manager.BusinessLogic.Exceptions.KeyVaultUriMissingOrInvalidException">VaultUri in config is missing or invalid</exception>
+            <exception cref="T:IdentityExpress.Manager.BusinessLogic.Exceptions.KeyVaultClientIdMissingOrInvalidException">ClientId in config is missing or invalid</exception>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Extensions.HttpContextExtensions">
+            <summary>
+            AdminUI HttpContext extension methods
+            </summary>
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Extensions.HttpContextExtensions.GetSchemeFromAuthHeader(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Using HttpContext decides what the AuthScheme to use should be based on the prefix to the Authentication Header
+            value. 
+            </summary>
+            <param name="context">HttpContext containing the Http Headers to use</param>
+            <param name="defaultScheme">string containing the default Scheme value if checks fail</param>
+            <returns></returns>
         </member>
         <member name="T:IdentityExpress.Manager.UI.Middleware.OidcSignInMiddleware">
             <summary>
@@ -64,6 +207,18 @@
             https://brockallen.com/2019/01/11/same-site-cookies-asp-net-core-and-external-authentication-providers/ 
             </summary>
             <param name="applicationBuilder"></param>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.Migrations.Identity.SqlServer.ClaimValueSearchBugFixes">
+            <inheritdoc />
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Migrations.Identity.SqlServer.ClaimValueSearchBugFixes.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Migrations.Identity.SqlServer.ClaimValueSearchBugFixes.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:IdentityExpress.Manager.UI.Migrations.Identity.SqlServer.ClaimValueSearchBugFixes.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
         </member>
         <member name="P:IdentityExpress.Manager.UI.License.ISystemClock.UtcNow">
             <summary>
@@ -80,9 +235,89 @@
             Thrown when the license fails to validate
             </summary>
         </member>
+        <member name="T:IdentityExpress.Manager.UI.License.LicenseAudience">
+            <summary>
+            The License Audience
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.AdminUI">
+            <summary>
+            AdminUi
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.SAML2P">
+            <summary>
+            Saml2p
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.WSFED">
+            <summary>
+            Ws-Fed
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.DynamicAuth">
+            <summary>
+            Dynamic Auth
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.KeyManagement">
+            <summary>
+            Key Management
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.FIDO">
+            <summary>
+            Fido
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.Enforcer">
+            <summary>
+            Enforcer
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.SCIM">
+            <summary>
+            SCIM
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseAudience.RiskBasedAuthentication">
+            <summary>
+            Risk Based Authentication
+            </summary>
+        </member>
         <member name="F:IdentityExpress.Manager.UI.License.LicenseConstants.GracePeriodMonths">
             <summary>
             The amount of months we allow customs to use their license key over the license key expiry date
+            </summary>
+        </member>
+        <member name="T:IdentityExpress.Manager.UI.License.LicenseType">
+            <summary>
+            The type of license
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseType.None">
+            <summary>
+            None
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseType.Production">
+            <summary>
+            Production
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseType.NonProduction">
+            <summary>
+            Non-Production
+            </summary>
+        </member>
+        <member name="F:IdentityExpress.Manager.UI.License.LicenseType.Demo">
+            <summary>
+            Demo
             </summary>
         </member>
         <member name="P:IdentityExpress.Manager.UI.Legacy.LegacyLicenseEntity.AuthorityURL">
@@ -136,6 +371,40 @@
             have no bearing on the functionality of the migrations
             </summary>
         </member>
+        <member name="M:IdentityExpress.Manager.Controllers.AuthController.#ctor(IdentityExpress.Manager.Services.IEndSessionEndpointStore,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration,Microsoft.Extensions.Logging.ILogger{IdentityExpress.Manager.Controllers.AuthController},IdentityExpress.Manager.BusinessLogic.Logic.Licensing.ILicenseValidationService)">
+            <summary>
+            
+            </summary>
+            <param name="endSessionEndpointStore">The <see cref="T:IdentityExpress.Manager.Services.IEndSessionEndpointStore"/> providing access to the session endpoint url</param>
+            <param name="adminUIConfiguration">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration"/> that represents the AdminUI configuration</param>
+            <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> that provides output logging</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:IdentityExpress.Manager.Controllers.HealthCheckController.#ctor(IdentityExpress.Manager.Services.IHealthCheckService,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration,Microsoft.Extensions.Logging.ILogger{IdentityExpress.Manager.Controllers.HealthCheckController})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="healthCheckService">The <see cref="T:IdentityExpress.Manager.Services.IHealthCheckService"/> that represents the health checking service.</param>
+            <param name="configuration">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration"/> that represents the AdminUI configuration</param>
+            <param name="logger">The <see cref="T:Microsoft.Extensions.Logging.ILogger"/> that provides output logging</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:IdentityExpress.Manager.Controllers.UIConfigurationController.#ctor(IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration,IdentityExpress.Manager.BusinessLogic.Logic.Services.IWebhookStore,IdentityExpress.Manager.BusinessLogic.Interfaces.Services.IFeatureFlagService,IdentityExpress.Manager.Authorization.IAuthorizationHandler)">
+            <summary>
+            Contructor
+            </summary>
+            <param name="adminUIConfiguration">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration"/> that represents the AdminUI configuration</param>
+            <param name="webhookStore">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Logic.Services.IWebhookStore"/> that allows access to web hook information</param>
+            <param name="featureFlagService">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Interfaces.Services.IFeatureFlagService"/> used to discover which features are enabled</param>
+            <param name="authorizationHandler">The <see cref="T:IdentityExpress.Manager.Authorization.IAuthorizationHandler"/> used to control access to CRUD-like operations</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:IdentityExpress.Manager.Controllers.UsersController.DefaultUserExists">
+            <summary>
+            Checks if default user (id: 'info@rocksolidknowledge.com') exists or not
+            </summary>
+            <returns>204 NoContent if exists, 404 NotFound if does not exist</returns>
+        </member>
         <member name="M:IdentityExpress.Manager.Controllers.UsersController.CannotUpdateItemSubjectIsNull(System.String)">
             <summary>
             Logs the fact that the subject is null and return a bad request
@@ -149,6 +418,56 @@
             </summary>
             <param name="subject"></param>
             <returns>Async User</returns>
+        </member>
+        <member name="M:IdentityExpress.Manager.Hosting.DuendeAdminUIBootstrapFactory.#ctor(IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration,Microsoft.AspNetCore.Identity.ILookupNormalizer,Rsk.CustomIdentity.Interfaces.ISSOStoreFactory,IdentityExpress.Manager.BusinessLogic.Logic.IdentityServerDuende.DuendeAllConfigurationDbContext)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="adminUIConfiguration">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration"/> that represents the AdminUI configuration</param>
+            <param name="ssoStoreFactory">The <see cref="T:Rsk.CustomIdentity.Interfaces.ISSOStoreFactory"/> factory to create the user, role and claim type stores</param>
+            <param name="normalizer">The <see cref="T:Microsoft.AspNetCore.Identity.ILookupNormalizer"/> used to normalize keys (emails/names) for lookup purposes</param>
+            <param name="allConfigurationDbContext">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Logic.IdentityServerDuende.DuendeAllConfigurationDbContext"/> database context</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:IdentityExpress.Manager.Hosting.DuendeAdminUIBootstrapFactory.Create">
+            <summary>
+            Create a <see cref="T:IdentityExpress.Manager.BusinessLogic.Logic.Bootstrap.IAdminUiBootstrap"/>
+            </summary>
+        </member>
+        <member name="T:IdentityExpress.Manager.Hosting.DuendeBootstrap">
+            <inheritdoc />
+        </member>
+        <member name="M:IdentityExpress.Manager.Hosting.DuendeBootstrap.#ctor(IdentityExpress.Manager.BusinessLogic.Logic.IdentityServerDuende.DuendeAllConfigurationDbContext,IdentityExpress.Manager.Hosting.IAdminUIBootstrapFactory,IdentityExpress.Manager.Hosting.IOpenIdConnectBootstrapFactory,Microsoft.Extensions.Logging.ILogger{IdentityExpress.Manager.Hosting.DuendeBootstrap})">
+            <summary>
+            Bootstraps IdS with everything required for AdminUI to work out of the box. Setting up default client,
+            access role/permission etc... And users if none exist.
+            </summary>
+            <param name="allConfigurationDbContext"></param>
+            <param name="adminUiBootstrapFactory"></param>
+            <param name="openIdConnectBootstrapFactory"></param>
+            <param name="logger"></param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:IdentityExpress.Manager.Hosting.DuendeBootstrap.Initialize">
+            <inheritdoc />
+        </member>
+        <member name="M:IdentityExpress.Manager.Hosting.DuendeBootstrap.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="M:IdentityExpress.Manager.Hosting.DuendeOpenIdConnectBootstrapFactory.#ctor(Rsk.CustomIdentity.Interfaces.ISSOStoreFactory,IdentityExpress.Manager.BusinessLogic.Logic.IdentityServerDuende.DuendeAllConfigurationDbContext,Microsoft.AspNetCore.Identity.ILookupNormalizer,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="storeFactory">The <see cref="T:Rsk.CustomIdentity.Interfaces.ISSOStoreFactory"/> factory to create the user, role and claim type stores</param>
+            <param name="allConfigurationDbContext">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Logic.IdentityServerDuende.DuendeAllConfigurationDbContext"/> database context</param>
+            <param name="normalizer">The <see cref="T:Microsoft.AspNetCore.Identity.ILookupNormalizer"/> used to normalize keys (emails/names) for lookup purposes</param>
+            <param name="adminUIConfiguration">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration"/> that represents the AdminUI configuration</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:IdentityExpress.Manager.Hosting.DuendeOpenIdConnectBootstrapFactory.Create">
+            <summary>
+            Create a <see cref="T:IdentityExpress.Manager.BusinessLogic.Logic.Bootstrap.IOpenIdConnectBootstrap"/>
+            </summary>
         </member>
         <member name="M:IdentityExpress.Manager.MigrationRunner.SchemaCheck.DbSchemaService.PerformManualDataTableFiltering(System.String,System.String,System.Data.DataTable)">
             <summary>
@@ -173,12 +492,393 @@
             If we're running the schema checker in the console runner, the logger would log any errors contained within this collection
             </summary>
         </member>
+        <member name="M:IdentityExpress.Manager.Services.EndSessionEndpointStore.#ctor(System.Net.Http.IHttpClientFactory,IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="clientFactory">The <see cref="T:System.Net.Http.IHttpClientFactory"/> used to create a <see cref="T:System.Net.Http.HttpClient"/> instance</param>
+            <param name="configuration">The <see cref="T:IdentityExpress.Manager.BusinessLogic.Configuration.IAdminUIConfiguration"/> that represents the AdminUI configuration</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:ApiHost.ConfigureJwtBearerOptions">
+            <summary>
+            A IPostConfigureOptions provided by Duende in sample, used in adding DPoP token support to web apis. It is for
+            JwtBearerOptions class
+            </summary>
+        </member>
+        <member name="M:ApiHost.ConfigureJwtBearerOptions.#ctor(System.String)">
+            <summary>
+            Constructor that takes in a config scheme name
+            </summary>
+            <param name="configScheme"></param>
+        </member>
+        <member name="M:ApiHost.ConfigureJwtBearerOptions.PostConfigure(System.String,Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions)">
+            <summary>
+            Post configure method called after JwtBearerOptions are configured in the DI container
+            </summary>
+            <param name="name">if not the same as configScheme nothing happens</param>
+            <param name="options">if name is same as configScheme then this object is checked making sure Events and
+            EventsType derive the correct type DPoPJwtBearerEvents</param>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="T:ApiHost.DefaultReplayCache">
+            <summary>
+            Default implementation of the replay cache using IDistributedCache
+            </summary>
+        </member>
+        <member name="M:ApiHost.DefaultReplayCache.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache)">
+            <summary>
+            ctor
+            </summary>
+            <param name="cache"></param>
+        </member>
+        <member name="M:ApiHost.DefaultReplayCache.AddAsync(System.String,System.String,System.DateTimeOffset)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiHost.DefaultReplayCache.ExistsAsync(System.String,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiHost.DPoPExtensions">
+            <summary>
+            Extensions methods for DPoP
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPExtensions.CreateThumbprintCnf(Microsoft.IdentityModel.Tokens.JsonWebKey)">
+            <summary>
+            Create the value of a thumbprint-based cnf claim
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPExtensions.CreateThumbprint(Microsoft.IdentityModel.Tokens.JsonWebKey)">
+            <summary>
+            Create the value of a thumbprint
+            </summary>
+        </member>
+        <member name="T:ApiHost.DPoPIatNullException">
+            <summary>
+            DPoP Iat null exception, thrown if Iat null when validating
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPIatNullException.#ctor(System.String)">
+            <summary>
+            ctor for Iat null exception
+            </summary>
+            <param name="method"></param>
+        </member>
+        <member name="T:ApiHost.DPoPJwtBearerEvents">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiHost.DPoPJwtBearerEvents.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{ApiHost.DPoPOptions},ApiHost.IDPoPProofValidator)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiHost.DPoPJwtBearerEvents.MessageReceived(Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiHost.DPoPJwtBearerEvents.TokenValidated(Microsoft.AspNetCore.Authentication.JwtBearer.TokenValidatedContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiHost.DPoPJwtBearerEvents.Challenge(Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerChallengeContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:ApiHost.DoesNotDeriveFromDPoPJwtBearerEventsException">
+            <summary>
+            Thrown when property on a type does not derive from DPoPJwtBearerEvents
+            </summary>
+        </member>
+        <member name="M:ApiHost.DoesNotDeriveFromDPoPJwtBearerEventsException.#ctor(System.String,System.String)">
+            <summary>
+            Constructs an exception with message build from name of the property and the class name of the object that
+            contain the property
+            </summary>
+            <param name="property"></param>
+            <param name="type"></param>
+        </member>
+        <member name="T:ApiHost.DPoPMode">
+            <summary>
+            DPoPMode enum, used to define accepted tokens
+            </summary>
+        </member>
+        <member name="F:ApiHost.DPoPMode.DPoPOnly">
+            <summary>
+            Only DPoP tokens will be accepted
+            </summary>
+        </member>
+        <member name="F:ApiHost.DPoPMode.DPoPAndBearer">
+            <summary>
+            Both DPoP and Bearer tokens will be accepted
+            </summary>
+        </member>
+        <member name="T:ApiHost.DPoPOptions">
+            <summary>
+            DPoPOptions, collection of setting related to DPoP token validation provided by Duende
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPOptions.Mode">
+            <summary>
+            DPoP mode specify token types accepted
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPOptions.ProofTokenValidityDuration">
+            <summary>
+            Duration for which proof token remains valid
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPOptions.ClientClockSkew">
+            <summary>
+            Clock skew for client
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPOptions.ServerClockSkew">
+            <summary>
+            Cock skew for server
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPOptions.ValidateIat">
+            <summary>
+            Should validate Iat
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPOptions.ValidateNonce">
+            <summary>
+            Should validate Nonce
+            </summary>
+        </member>
+        <member name="T:ApiHost.DPoPProofValidationContext">
+            <summary>
+            DPoP Proof validation context,  
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationContext.Scheme">
+            <summary>
+            The ASP.NET Core authentication scheme triggering the validation
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationContext.Url">
+            <summary>
+            The HTTP URL to validate
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationContext.Method">
+            <summary>
+            The HTTP method to validate
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationContext.ProofToken">
+            <summary>
+            The DPoP proof token to validate
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationContext.AccessToken">
+            <summary>
+            The access token
+            </summary>
+        </member>
+        <member name="T:ApiHost.DPoPProofValidationResult">
+            <summary>
+            Result for DPoP validation outcome
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidationResult.Success">
+            <summary>
+            Static instance of a successful DPoPProofValidationResult
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.IsError">
+            <summary>
+            Indicates if the result was successful or not
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.Error">
+            <summary>
+            The error code for the validation result
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.ErrorDescription">
+            <summary>
+            The error description code for the validation result
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.JsonWebKey">
+            <summary>
+            The serialized JWK from the validated DPoP proof token.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.JsonWebKeyThumbprint">
+            <summary>
+            The JWK thumbprint from the validated DPoP proof token.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.Confirmation">
+            <summary>
+            The cnf value for the DPoP proof token 
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.Payload">
+            <summary>
+            The payload value of the DPoP proof token.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.TokenId">
+            <summary>
+            The jti value read from the payload.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.AccessTokenHash">
+            <summary>
+            The ath value read from the payload.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.Nonce">
+            <summary>
+            The nonce value read from the payload.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.IssuedAt">
+            <summary>
+            The iat value read from the payload.
+            </summary>
+        </member>
+        <member name="P:ApiHost.DPoPProofValidationResult.ServerIssuedNonce">
+            <summary>
+            The nonce value issued by the server.
+            </summary>
+        </member>
+        <member name="T:ApiHost.DPoPProofValidator">
+            <inheritdoc />
+        </member>
+        <member name="F:ApiHost.DPoPProofValidator.SupportedDPoPSigningAlgorithms">
+            <summary>
+            A collection of supported DPoP signing algorithms
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.#ctor(Microsoft.Extensions.Options.IOptionsMonitor{ApiHost.DPoPOptions},Microsoft.AspNetCore.DataProtection.IDataProtectionProvider,ApiHost.IReplayCache,Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler,Microsoft.AspNetCore.Authentication.ISystemClock,Microsoft.Extensions.Logging.ILogger{ApiHost.DPoPProofValidator})">
+            <summary>
+            ctor for DPoPProofValidator
+            </summary>
+            <param name="optionsMonitor"></param>
+            <param name="dataProtectionProvider"></param>
+            <param name="replayCache"></param>
+            <param name="jsonWebTokenHandler"></param>
+            <param name="systemClock"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateAsync(ApiHost.DPoPProofValidationContext)">
+            <inheritdoc />
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateHeaderAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates the header.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateSignatureAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates the signature.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidatePayloadAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates the payload.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateReplayAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates is the token has been replayed.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateFreshnessAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates the freshness.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateIatAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates the freshness of the iat value.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.ValidateNonceAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Validates the freshness of the nonce value.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.CreateNonce(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Creates a nonce value to return to the client.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.GetUnixTimeFromNonceAsync(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult)">
+            <summary>
+            Reads the time the nonce was created.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.IsExpired(ApiHost.DPoPProofValidationContext,ApiHost.DPoPProofValidationResult,System.TimeSpan,System.Int64)">
+            <summary>
+            Validates the expiration of the DPoP proof.
+            Returns true if the time is beyond the allowed limits, false otherwise.
+            </summary>
+        </member>
+        <member name="M:ApiHost.DPoPProofValidator.CreateTestHash(System.String)">
+            <summary>
+            Crates a hash to test the hash in the proof token payload
+            </summary>
+            <param name="stringToHash"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ApiHost.IDPoPProofValidator">
+            <summary>
+            DPoP Proof validation class provided in the Duende API using DPoP sample
+            </summary>
+        </member>
+        <member name="M:ApiHost.IDPoPProofValidator.ValidateAsync(ApiHost.DPoPProofValidationContext)">
+            <summary>
+            Validates a DPoPProofValidationContext object
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:ApiHost.IReplayCache">
+            <summary>
+            IReplayCache interface, for adding and removing handles from the cache
+            </summary>
+        </member>
+        <member name="M:ApiHost.IReplayCache.AddAsync(System.String,System.String,System.DateTimeOffset)">
+            <summary>
+            Adds a handle to the cache 
+            </summary>
+            <param name="purpose"></param>
+            <param name="handle"></param>
+            <param name="expiration"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiHost.IReplayCache.ExistsAsync(System.String,System.String)">
+            <summary>
+            Checks if a cached handle exists 
+            </summary>
+            <param name="purpose"></param>
+            <param name="handle"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.IdentityExpressExtensions">
+            <summary>
+            A collection of extensions methods use for configuring AdminUI at startup
+            </summary>
+        </member>
         <member name="M:Microsoft.Extensions.DependencyInjection.LicensingExtension.UseLicensingMiddleware(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
             <summary>
             Use the licensing middleware without options
             </summary>
             <param name="builder"></param>
             <returns></returns>
+        </member>
+        <member name="T:AdminUI.Features.DynamicAuthentication.DynamicAuthenticationController">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:AdminUI.Features.StarterMode.StarterModeController">
+            <summary>
+            
+            </summary>
         </member>
     </members>
 </doc>

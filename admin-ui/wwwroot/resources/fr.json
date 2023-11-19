@@ -1,6 +1,15 @@
 {
   "Common": {
+    "LicenseIsInGracePeriod" : "Votre licence a expiré, veuillez renouveler votre abonnement par {0} afin de continuer à utiliser AdminUI",
+    "PolicyWithUTCNotice" : "<br/>Les dates de politique d'accès sélectionnées sont en UTC",
+    "Dates": {
+      "UTCWarning" : "Les dates sélectionnées sont en UTC"
+    },
     "Saving": "Enregistrement en cours",
+    "Confirm": "Confirmer",
+    "QuotaLimit": "Vous avez atteint/dépassé la limite de {{limit}} pour \"{{type}}\" avec AdminUI Starter. <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"{{href}}\" target=\"_blank\">Mettre à jour</a> pour gérer un nombre illimité de \"{{type}}\".",
+    "OverQuota": "Au-dessus de la limite, pour l'utiliser, veuillez réduire en dessous de",
+    "DPoP": "DPoP",
     "Remove": {
       "Title": "Supprimer",
       "Confirm": "Confirmer la suppression",
@@ -10,6 +19,10 @@
     "SaveAll": "Tout enregistrer",
     "Custom": "Personnalisé",
     "Or": "Ou",
+    "Update": "Mettre à jour",
+    "Test": "Tester",
+    "ValidateCert": "Valider le certificat",
+    "ValidateMetadata": "Valider les métadonnées",
     "RedirectUris": "Rediriger les URI",
     "MustBeHttpsInProduction": "Ces protocoles reposent sur TLS en production",
     "Start": "Démarrer",
@@ -33,6 +46,12 @@
     "Clear": "Effacer",
     "Save": "Enregistrer",
     "Saved": "Enregistré",
+    "Scheme": "Schéma",
+    "Wizards": {
+      "Review": "Une possibilité de vérifier avant l’envoi",
+      "Empty": "Oups… Il semble qu’une erreur inattendue se soit produite"
+    },
+    "ComingSoon": "Bientôt disponible",
     "DontSave": "Ne pas enregistrer",
     "Enabled": "Activé",
     "Disabled": "Désactivé",
@@ -90,7 +109,7 @@
     "DatePicker": "sélectionneur de dates",
     "Boolean": "booléen",
     "Text": "texte",
-    "Search": "Recherche…",
+    "Search": "Terme de recherche",
     "Authenticating": "Authentification",
     "Loading": "Chargement",
     "AreYouSureContinue": "Voulez-vous vraiment continuer ?",
@@ -121,7 +140,8 @@
       "AreYouSureSimple2": "Voulez-vous vraiment supprimer le",
       "AreYouSureSimple3": "\"Êtes-vous sûr de que vouloir supprimer cet élément ?",
       "Warning": "Attention: cette action ne pourra être annulée.",
-      "No": "Non, ne pas supprimer"
+      "No": "Non, ne pas supprimer",
+      "FinalScopeOnResourceWarning": "Avertissement: la suppression de cette portée la supprimera de la base de données. Cette action est irréversible."
     },
     "Types": {
       "String": "Chaîne",
@@ -232,9 +252,17 @@
     "Logins": "Connexions",
     "Properties": "Propriétés",
     "Keys": "Clés",
-    "Webhooks": "Webhooks"
+    "Webhooks": "Webhooks",
+    "SessionManagement": "Gestion de session",
+    "Advanced": "Avancé",
+    "DynamicAuth": "Authentification dynamique",
+    "Request": "Demande",
+    "Response": "Réponse",
+    "SP": "Fournisseur de services (SP)",
+    "IdP": "Fournisseur d'identité (IdP)"
   },
   "Errors": {
+    "UnableToCompilePolicy" : "Impossible de compiler la stratégie d'autorisation, veuillez consulter les journaux ou contacter un administrateur",
     "NotFoundTitle": "Erreur 404",
     "NotFoundDescription": "Cette page ou cette ressource est introuvable.",
     "ForbiddenTitle": "Erreur 403",
@@ -278,6 +306,7 @@
     }
   },
   "Users": {
+    "SearchPlaceholder": "Nom d'utilisateur, nom complet ou adresse e-mail commençant par...",
     "Title": "Utilisateurs",
     "Singular": "Utilisateur",
     "AddUser": "Ajouter un utilisateur",
@@ -286,6 +315,8 @@
     "MinimumSearchLength": "Le terme recherché doit comporter au moins 2 caractères",
     "Filter": {
       "Active": "Actif",
+      "IncludeClaims" : "Inclure les valeurs de réclamation",
+      "IncludeClaimsHelp" : "Recherche sur les valeurs de réclamation de l'utilisateur. Peut affecter la performance.",
       "Blocked": "Bloqué",
       "Label": "Afficher uniquement les utilisateurs qui sont",
       "Deleted": "Supprimés",
@@ -345,7 +376,9 @@
       "RevokeConfirm": "Voulez-vous révoquer l'accès à toutes les applications de ce compte ?",
       "DataEncrypted": "Les étendues peuvent ne pas s'afficher ici en raison de la configuration de la protection des données IdentityServer"
     },
-    "AssignedRoles": "Rôles assignés"
+    "AssignedRoles": "Rôles assignés",
+    "LockoutEnabled": "Verrouillage activé",
+    "LockoutEnd": "Fin du verrouillage"
   },
   "UserDetails": {
     "EnabledTwoFactor": "Activer l'authentification à deux facteurs d'identité ASP.NET",
@@ -388,10 +421,19 @@
     "RevokeLoginConfirmationText": "Voulez-vous vraiment révoquer cet identifiant externe ?"
   },
   "ClaimTypes": {
+    "SearchPlaceholder": "Le nom du type de revendication contient...",
     "NameHelp": "Le nom utilisé pour identifier le type de revendication",
-    "DisplayNameHelp": "Un nom convivial pour le type de revendication"
+    "DisplayNameHelp": "Un nom convivial pour le type de revendication",
+    "TooManyAllowedValues": "Trop de valeurs à afficher",
+    "TypeaheadHelp": "Trop d'options, appuyez pour filtrer...",
+    "AllowedValuesFiltering": {
+      "FilteringAllowedValues": "Une erreur s'est produite lors du filtrage des valeurs autorisées pour le type de réclamation.",
+      "NothingFound": "Rien n'a été trouvé!",
+      "TooManyFound": "Trop de valeurs possibles trouvées, veuillez continuer le filtrage."
+    }
   },
   "Roles": {
+    "SearchPlaceholder": "Le nom du rôle contient...",
     "AddRole": "Ajouter le rôle",
     "Role": "Rôle",
     "NewRole": "Nouveau rôle",
@@ -452,6 +494,7 @@
     "AllowedValues": "Valeurs autorisées"
   },
   "Resources": {
+    "SearchPlaceholder": "Le nom ou l'ID de la ressource contient...",
     "AddResource": "Ajouter une ressource",
     "ResourceID": "ID de la ressource",
     "ResourceStatus": "Statut de la ressource",
@@ -465,8 +508,8 @@
     "ResourceName": "Nom de ressource utilisé dans l'interface utilisateur Admin",
     "ResourceDescription": "Description de la ressource utilisée dans l'interface utilisateur Admin",
     "UpdatedSuccess": "La ressource a bien été mise à jour",
-	"AllowedAccessTokenSigningAlgorithms": "Algorithmes de signature de jetons d'accès autorisés",
 	"RequireResourceIndicator": "Indicateur de ressources requises",
+    "Failed" : "Échec de la mise à jour de la ressource",
 	"RequireResourceIndicatorHelp": "Garantit que cette ressource ne peut être demandée que lorsque la demande inclut le paramètre de ressource. Garantit que les jetons ne contiendront que cette ressource en tant qu'audience.",
     "Scope": {
       "NewScope": "Nouvelle portée pour",
@@ -513,12 +556,16 @@
     "Secrets": "Entrez quelques secrets pour l'introspection (facultatif)",
     "UserClaimTypes": "Types de demande de l'utilisateur à inclure dans les tokens S'applique à toutes les portées pour la ressource.",
     "AddScope": "Ajouter une portée",
+    "AddSharedScope" : "Attribuer des périmètres partagés",
     "ProtectedResource": "ressource protégée ?",
     "ClientAccess": "Sélectionnez les ressources protégées auxquelles ce client peut accéder",
     "NoneFound": "Aucune ressource protégée n'a été trouvée",
     "UpdatedResource": "Ressource mise à jour avec succès"
   },
   "Clients": {
+    "SearchPlaceholder": "Le nom du client commence par...",
+    "ScopePickerSharedScopeWarning" : "(*) Utilisé par plus d'une ressource protégée",
+    "ArsEndpoints": "Points de terminaison ARS",
     "Export": {
       "ExportAll": "Exporter tout",
       "ExportAllClients": "Exporter tous les clients",
@@ -528,6 +575,7 @@
     "Import": {
       "Import": "Importer",
       "ImportClients": "Importer clients",
+      "ImportExportClients": "Importer/Exporter des Clients",
       "Wizard": {
         "Setup": {
           "Title": "Importer Clients",
@@ -677,7 +725,6 @@
     },
     "EntityId": "ID de l’entité",
     "Realm": "Domaine",
-    "Created": "Créé",
     "CallbackURL": "Entrez une URL de rappel.<br/><small>Des jetons seront envoyés à ce point de terminaison (vous pouvez en configurer davantage après la configuration)</small> ",
     "PostLogoutURL": "Entrez une URL post-déconnexion<br /><small>Facultatif (vous pouvez en configurer davantage après l’installation)</small> ",
     "NoClaims": "Aucune revendication n’a été trouvée pour ce client",
@@ -823,8 +870,7 @@
       "None": "Aucun type d’autorisation n’a été trouvé",
       "DuplicateGrantType": "Type d’autorisation a déjà été ajouté",
       "AddGrantType": "Ajouter un type de subvention",
-      "CIBA": "ciba",
-      "None": "Aucun type de subvention trouvé"
+      "CIBA": "ciba"
     },
     "Properties": {
       "None": "Aucune propriété n’a été trouvée",
@@ -986,7 +1032,7 @@
     },
     "PKCENativeApp": {
       "Setup": "Configurer une application native",
-      "Titre": "Natif",
+      "Title": "Natif",
       "Summary": "Flux de code d'autorisation + PKCE",
       "Description": "Une application de bureau ou mobile s'exécutant sur l'appareil d'un utilisateur.<br />Ces applications ne sont pas fiables pour garder un secret, mais peuvent utiliser des jetons d'actualisation. La visibilité<br />des jetons dépend du navigateur et du choix de l'URI de redirection.",
       "Created": "Application native créée",
@@ -1097,7 +1143,20 @@
       "None": "Aucun URL  d'application N'a été trouvé",
       "AddURL": "Ajouter URL",
       "EditApplicationURLs": "Modifier les URL de l'application",
-      "EditApplicationURL": "Modifier l'URL de l'application"
+      "EditApplicationURL": "Modifier l'URL de l'application",
+      "InitiateLogin": {
+        "Label": "URI de Déclenchement de Connexion",
+        "Help": "Facultatif, doit également commencer par 'https://'"
+      }
+    },
+    "DPoP": {
+      "ValidationMode": {
+        "Label": "Mode de Validation"
+      },
+      "ClockSkew": {
+        "Label": "Décalage de l'Horloge",
+        "Help": "Utilisé lors de la validation de la valeur de la revendication 'iat' pour ce client"
+      }
     },
     "Selected": "(Sélectionné)",
     "Endpoint": "Point de terminaison",
@@ -1117,6 +1176,280 @@
     "Soap": "SAVON",
     "ARSEndpoints": "ARS Endpoints",
     "ArsEndpointHelp": "URL du point de terminaison ARS. Ces protocoles reposent sur TLS en production"
+  },
+  "DynamicAuth": {
+    "SearchPlaceholder": "Le schéma ou le nom commence par...",
+    "Title": "Authentification dynamique",
+    "Scheme": {
+      "Label": "Schéma",
+      "Help": "L’identifiant unique de ce fournisseur"
+    },
+    "DisplayName": {
+      "Label": "Nom à afficher",
+      "Help": "Nom convivial pour ce fournisseur"
+    },
+    "Filters": {
+      "OIDC": "OIDC",
+      "SAML": "SAML",
+      "Enabled": "Activé",
+      "Disabled": "Désactivé"
+    },
+    "Authority": {
+      "Label": "URL de l’autorité",
+      "Help": "L’URL où le fournisseur est hébergé. Doit commencer par « https :// »",
+      "ReachableWarning": "Avertissement : Impossible d’obtenir le document de découverte. Cela pourrait signifier que cette autorité n’est pas valide.",
+      "ReachableWarningTitle": "Validation d'autorité",
+      "ReachableWarningMsg": "Impossible d'obtenir le document de découverte à l'adresse du point de terminaison standard, cela pourrait signifier que cette autorité est invalide."
+
+    },
+    "ClientId": {
+      "Label": "ID Client",
+      "Help": "Identifiant client de ce fournisseur externe"
+    },
+    "CallbackPath": {
+      "Label": "Chemin de rappel",
+      "Help": "Chemin de rappel du gestionnaire d’authentification"
+    },
+    "Flow": {
+      "Label": "Flux OAuth",
+      "Help": "Choisir le flux d’authentification utilisé par le fournisseur"
+    },
+    "Flows": {
+      "AuthCode": "Flux de code d’autorisation",
+      "AuthCodePlusPkce": "Flux de code d’autorisation + PKCE"
+    },
+    "Scopes": {
+      "Label": "Périmètres",
+      "Placeholder": "Saisir le périmètre…",
+      "AlreadyAdded": "Ce périmètre a déjà été ajouté",
+      "MustSpecifyScope": "Périmètre non spécifié",
+      "CannotHaveSpaces": "Les périmètres ne peut pas contenir d’espaces",
+      "NoScopesMessage": "Aucun périmètre n’a été ajouté"
+    },
+    "SignInScheme": {
+      "Label": "Schéma de connexion",
+      "Guide": {
+        "Text": "Fragment de code présentant la configuration du schéma de connexion",
+        "DcosLink": "Vous pouvez consulter la documentation <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"\" target=\"_blank\">ici</a>."
+      },
+      "Placeholder": "Saisir le schéma de connexion…",
+      "Help": "Ce paramètre peut être remplacé. Pour en savoir plus, consultez <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Saml_Dynamic_Provider.html#identityserver-overriding-sign-inout-schemes\" target=\"_blank\">ici</a>.",
+      "IdSExternalLogin": {
+        "Name": "Schéma de connexion externe d'IdentityServer",
+        "Help": "'Idsrv.External' Utilisez ceci si vous utilisez les cookies par défaut d'IdentityServer"
+      },
+      "AspNetExternalLogin": {
+        "Name": "Schéma de connexion externe Asp.Identity",
+        "Help": "'Identity.External' Utilisez ceci si vous utilisez les cookies par défaut d'Asp.Identity"
+      }
+    },
+    "DifferentSignOut": {
+      "Label": "Schéma de déconnexion différent",
+      "Help": "Définir un schéma de déconnexion différent"
+    },
+    "SignOutScheme": {
+      "Label": "Schéma de déconnexion",
+      "Help": "Ce paramètre peut être remplacé. Pour en savoir plus, consultez <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Saml_Dynamic_Provider.html#identityserver-overriding-sign-inout-schemes\" target=\"_blank\">ici</a>.",
+      "Placeholder": "Entrer le schéma de déconnexion..."
+    },
+    "SignedOutCallbackPath": {
+      "Help": "Point de terminaison SLO",
+      "Label": "SignedOutCallbackPath"
+    },
+    "EntityId": {
+      "Label": "ID de l'entité SP",
+      "Help": ""
+    },
+    "CallbackPathAcsEndpoint": {
+      "Label": "Chemin de rappel (point de terminaison ACS)",
+      "Help": ""
+    },
+    "CertFile": {
+      "Label": "Certificat",
+      "Help": "Accepte les formats PFX et P12"
+    },
+    "CertPassword": {
+      "Label": "Mot de passe du certificat",
+      "Help": ""
+    },
+    "UploadCert": "Charger le certificat",
+    "ChangeCert": "Modifier le certificat",
+    "UpdateSigningCertificate": {
+      "Title": "Mettre à jour le certificat de signature"
+    },
+    "UpdateEncryptionCertificate": {
+      "Title": "Mettre à jour le certificat de chiffrement"
+    },
+    "FederationPathWarning": "Le chemin doit commencer par /federation/",
+    "ClientSecret": {
+      "Label": "Secret client",
+      "Help": "Secret facultatif utilisé lors de l’authentification auprès du fournisseur externe"
+    },
+    "RemoteSignOutPath": {
+      "Label": "RemoteSignOutPath"
+    },
+    "SignedOutRedirectUri": {
+      "Label": "SignedOutRedirectUri"
+    },
+    "ResponseMode": {
+      "Label": "Mode de réponse"
+    },
+    "RefreshOnIssuerKeyNotFound": {
+      "Label": "Actualiser les métadonnées sur la clé d’émetteur introuvable",
+      "Help": "L’actualisation des métadonnées aura lieu lors de la rotation de clé"
+    },
+    "GetClaimsFromUserInfoEndpoint": {
+      "Label": "Obtenir des attributs à partir du point de terminaison abritant les informations de l’utilisateur",
+      "Help": "Récupérer des attributs supplémentaires à partir du point de terminaison abritant les informations de l’utilisateur après la création d’une identité à partir du jeton id_token"
+    },
+    "SaveTokens": {
+      "Label": "Enregistrer les jetons",
+      "Help": "Détermine si les jetons d’accès et d’actualisation doivent être stockés en tant que cookie dans le navigateur après une authentification réussie."
+    },
+    "UseTokenLifetime": {
+      "Label": "Utiliser la durée de vie du jeton",
+      "Help": "La durée de vie de la session d’authentification (par exemple, des cookies) doit correspondre à celle du jeton d’authentification."
+    },
+    "SkipUnrecognizedRequests": {
+      "Label": "Ignorer les requêtes non reconnues",
+      "Help": "Ignorer les requêtes envoyées à la méthode de rappel si elles n’incluent pas les données d’autorisation. La désactivation de cette option et la configuration du chemin de rappel CallbackPath vers un point de terminaison dédié peut permettre une meilleure gestion des erreurs."
+    },
+    "DisableTelemetry": {
+      "Label": "Désactiver la télémétrie",
+      "Help": "Envoyer la version de l’assembly du package IdentityModel en tant que paramètre de requête d’autorisation ou de déconnexion."
+    },
+    "List": {
+      "None": "Aucun fournisseur dynamique trouvé"
+    },
+    "UpdateClientSecret": {
+      "Title": "Mettre à jour le Secret client",
+      "Description": "Ajoutez ici votre nouveau Secret client",
+      "Confirm": "Mettre à jour",
+      "No": "Non, ne pas mettre à jour"
+    },
+    "Wizard": {
+      "Setup": "Configurer un fournisseur d’authentification dynamique",
+      "Title": "Ajouter un fournisseur d’authentification dynamique",
+      "TypeSelectStep": {
+        "OIDC": {
+          "Name": "Fournisseur OIDC",
+          "Title": "Fournisseur OpenID Connect",
+          "Description": "Un fournisseur utilisant OpenID Connect pour authentifier un utilisateur. <br/>La documentation sur l’ajout de fournisseurs est <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Oidc_Dynamic_Provider.html\" target=\"_blank\">ici</a>."
+        },
+        "SAML": {
+          "Name": "Fournisseur SAML",
+          "Title": "Security Assertion Markup Language",
+          "Description": "Un fournisseur utilisant SAML pour authentifier un utilisateur. <br/>La documentation sur l’ajout de fournisseurs est <a class=\"tw-inline-block tw-text-blue-500 hover:tw-text-body trans\" href=\"documentation/DynamicAuthentication/Adding_a_Saml_Dynamic_Provider.html\" target=\"_blank\">ici</a>."
+        },
+        "TypeLabel": "Type de fournisseur d’authentification dynamique"
+      },
+      "NameRoleStep": {
+        "Title": "Définir le schéma et le nom à afficher pour votre fournisseur dynamique"
+      },
+      "SignInSchemeStep": {
+        "Title": "Définir votre schéma de connexion"
+      },
+      "SummaryStep": {
+        "Title": "Une possibilité de vérifier avant l’envoi",
+        "Actions": "modifier",
+        "Edit": "modifier"
+      },
+      "OIDC": {
+        "Setup": "Configurer un fournisseur OpenID Connect dynamique",
+        "Title": "Fournisseur OpenID Connect",
+        "ConnectionStep": {
+          "Title": "Connecter à votre fournisseur dynamique externe"
+        },
+        "ScopesStep": {
+          "Title": "Périmètres de la demande"
+        },
+        "ClientSecretStep": {
+          "Title": "Définir votre secret client partagé"
+        }
+      },
+      "SAML": {
+        "Setup": "Configurer un fournisseur SAML dynamique",
+        "Title": "Security Assertion Markup Language",
+        "ServiceProviderStep": {
+          "Title": "Définir le fournisseur de services (c'est vous)"
+        },
+        "SigningStep": {
+          "Title": "Sélectionner le certificat pour signer les demandes ou cliquer sur 'Suivant' pour passer cette étape"
+        },
+        "ExternalProviderStep": {
+          "Title": "Configuration du fournisseur externe IdP",
+          "MetadataValidTitle": "Validation réussie de l'adresse des métadonnées IdP",
+          "MetadataValidMsg": "L'adresse des métadonnées du fournisseur d'identité externe existe et renvoie un fichier de métadonnées IdP valide.",
+          "MetadataInValidTitle": "Échec de la validation de l'adresse des métadonnées IdP",
+          "MetadataInValidMsg": "L'adresse des métadonnées du fournisseur d'identité externe n'existe pas ou renvoie un fichier de métadonnées non valide."
+        }
+      }
+    },
+    "SPEntityID": {
+      "Label": "ID de l'entité SP",
+      "Help": "Identifiant unique pour ce fournisseur de services"
+    },
+    "SpMetadataAddress": {
+      "Label": "Chemin de métadonnées SP",
+      "Help": "Chemin de métadonnées pour ce fournisseur de services"
+    },
+    "Success": {
+      "Updated": "Mise à jour de DynamicAuth réussie"
+    },
+    "SAML": {
+      "RequireEncryptedAssertions": {
+        "Label": "Exiger des assertions chiffrées",
+        "Help": "La validation de la réponse de connexion échouera si la réponse ne contient pas d'assertions chiffrées"
+      },
+      "RequireSignedAssertions": {
+        "Label": "Exiger des assertions signées",
+        "Help": "La validation de la réponse de connexion échouera si la réponse ne contient pas d'assertions signées"
+      },
+      "SignAuthenticationRequests": {
+        "Label": "Signer les demandes d'authentification",
+        "Help": "Le fournisseur de services signera toujours les demandes générées"
+      },
+      "RequireValidMetadataSignature": {
+        "Label": "Exiger une signature de métadonnées valide",
+        "Help": "Exiger que les métadonnées du fournisseur d'identité passent la validation de signature"
+      },
+      "IdpMetadataAddress": {
+        "Label": "Adresse des métadonnées IdP",
+        "Help": "Doit commencer par 'https://'",
+        "ReachableWarning": "Impossible de joindre l'adresse"
+      },
+      "AllowIdpInitiatedSso": {
+        "Label": "Autoriser le SSO initié par le fournisseur d'identité",
+        "Help": "Autorise la connexion unique initiée par le fournisseur d'identité (non recommandé)"
+      },
+      "IdPInitiatedSsoCompletionPath": {
+        "Label": "Chemin de fin de SSO initié par le fournisseur d'identité",
+        "Help": "Point de terminaison de redirection après un SSO initié par le fournisseur d'identité réussi"
+      },
+      "TimeComparisonTolerance": {
+        "Label": "Tolérance de comparaison de temps",
+        "Help": "En secondes"
+      }
+    },
+    "RequestSigningSignature": {
+      "Label": "Signature des demandes",
+      "Help": "Certificat signé de ce fournisseur de services",
+      "Subject": {
+        "Label": "Sujet"
+      },
+      "ThumbPrint": {
+        "Label": "Empreinte digitale"
+      },
+      "Expiration": {
+        "Label": "Date d'expiration"
+      },
+      "Options": {
+        "Add": "Ajouter un certificat",
+        "Replace": "Remplacer le certificat",
+        "Delete": "Supprimer le certificat",
+        "NoCertificate": "Aucun certificat trouvé"
+      }
+    }
   },
   "Secret Picker": {
     "Set Expiration Button": "Définir une expiration facultative",
@@ -1140,6 +1473,8 @@
     "Saving Success Title": "Succès",
     "Saving Success Message": "Vos modifications ont été enregistrées",
     "SuccessfullyCreated": "A bien été créé",
+    "SuccessfullySaved": "Enregistrement réussi",
+    "SuccessfullyDeleted": "Supression réussie",
     "UsernameTaken": "Le nom d'utilisateur est déjà utilisé",
     "AccountCreated": "Le compte a bien été créé",
     "AllAppsRevoked": "Toutes les applications ont bien été révoquées",
@@ -1158,7 +1493,11 @@
     "DiscardChanges": "Abandonner les modifications",
     "StayHere": "Rester ici.",
     "Notice": "Avis",
-    "DontForgetToSave": "N'oubliez pas d'enregistrer vos modifications"
+    "DontForgetToSave": "N'oubliez pas d'enregistrer vos modifications",
+    "CertValidTitle": "Validation du certificat réussie",
+    "CertInValidTitle": "Échec de la validation du certificat",
+    "CertInValidMsg": "Le certificat ou le mot de passe est incorrect. Veuillez réessayer en vous assurant de télécharger un fichier .p12 ou .pfx avec le bon mot de passe. Ou cliquez sur 'Effacer' et 'Suivant' pour passer cette étape.",
+    "StarterModeFailed": "Le Mode Starter n'a pas pu être activé"
   },
   "Settings": {
     "AccessPolicy": {
@@ -1278,6 +1617,7 @@
     "MultiFactorHeading": "Réinitialiser l’authentification multi-facteurs",
     "PasswordResetHeading": "Réinitialiser le mot de passe",
     "UserRegistrationHeading": "Enregistrement de l’utilisateur",
+    "ServerSideSessionDeleteHeading": "Suppression de session côté serveur",
     "WebhookConfigurationUpdated": "Configuration du webhook mise à jour",
     "ClientCreationWarningTitle": "Création de client",
     "ClientCreationWarningDescription": "L’activation des webhooks va créer un client, souhaitez-vous continuer ?",
@@ -1292,5 +1632,60 @@
     "PermissionsInfoMessage": " Pour plus d’information sur le rôle et les permissions dont disposera votre utilisateur, consultez nos <a class='tw-inline-block tw-text-blue-500 hover:tw-text-body trans' href='https://www.identityserver.com/documentation/adminui/Access_Policy/Access_Policy/' target='_blank'>Documents de politique d’accès</a>",
     "ReminderMessage": "Votre de base de donnée contient toujours l’administrateur AdminUI par défaut. Veuillez le supprimer.",
     "Resolve": "Résoudre"
+  },
+  "SessionManagement": {
+    "Created": "Créé",
+    "Expires": "Expire",
+    "Renewed": "Renouvelé",
+    "Scheme": "Schéma",
+    "NoExpiration": "Les sessions n'ont pas d'expiration",
+    "NotRenewed": "Session non renouvelée",
+    "NoSessionsFound": "Aucune session trouvée"
+  },
+  "StarterMode": {
+    "RequiresUpgrade": "Nécessite une mise à niveau depuis la licence Starter",
+    "UpgradeAdminUI": "Mettre à jour vers AdminUI Enterprise",
+    "ExtendDemo": "Prolonger la Licence de Démo",
+    "ConfirmStarterMode": "Confirmer le Mode Starter",
+    "Warning": "Vous êtes maintenant en Mode Starter. L'authentification est désactivée.",
+    "Consent": {
+      "Title": "Votre licence de démo AdminUI a expiré",
+      "Description": "En confirmant le Mode Starter, AdminUI basculera vers une licence Starter gratuite. Les restrictions suivantes s'appliqueront :",
+      "Features": {
+        "Authentication": "L'authentification sera supprimée",
+        "Clients": "Le nombre d'applications clientes est limité à 3",
+        "ClientFlows": "Seuls les flux clients Code d'Authentification + PKCE et Client Machine à Machine sont pris en charge",
+        "Users": "Le nombre d'utilisateurs est limité à 10",
+        "Import": "L'importation et l'exportation de la configuration du client ne sont pas prises en charge",
+        "Audits": "Les journaux d'audit ne peuvent pas être consultés ou gérés",
+        "DynamicAuth": "Les Fournisseurs d'Authentification Dynamique ne peuvent pas être gérés"
+      },
+      "NonAdminUser": "Vous n'êtes pas un utilisateur administrateur. Seul un utilisateur administrateur peut activer le Mode Starter."
+    },
+    "ConfirmationModal": {
+      "Title": "Confirmer le Mode Starter AdminUI",
+      "Description": "AdminUI vous déconnectera maintenant et se rafraîchira. Vous pourrez ensuite simplement cliquer sur Connexion pour accéder à AdminUI sans authentification avec l'IdentityServer configuré.",
+      "Warning": "AVERTISSEMENT : CELA NE DEVRAIT PAS ÊTRE FAIT DANS DES ENVIRONNEMENTS DE PRODUCTION"
+    },
+    "Teaser": {
+      "Title": "Mettre à jour vers AdminUI Enterprise",
+      "TitleWithFeature": "Mettre à jour vers AdminUI Enterprise pour bénéficier de {0}",
+      "Description": "Libérez pleinement le potentiel d'AdminUI pour soutenir votre solution IdentityServer et avoir accès à :",
+      "RedirectedDescription": "Obtenez {0} et d'autres avantages en débloquant pleinement le potentiel d'AdminUI. Soutenez votre solution IdentityServer et ayez accès à :",
+      "Features": {
+        "Authentication": "Authentification sécurisée dans AdminUI",
+        "UsersAndClients": "Gestion illimitée d'utilisateurs et d'applications clientes",
+        "ExtraClientFlows": "Gestion de flux d'applications clientes supplémentaires",
+        "Access": "Contrôle d'accès précis d'AdminUI",
+        "Import": "Importation et exportation de la configuration du client entre les environnements",
+        "Audits": "Contrôle complet et auditable des opérations d'AdminUI et d'IdentityServer",
+        "DynamicAuth": "Gestion des Fournisseurs d'Authentification Dynamique"
+      }
+    },
+    "Clients": {
+      "Basic": "Configuration de Base",
+      "Enterprise": "Configuration Entreprise",
+      "ExtraClientFlows": "plus de flux d'applications clientes"
+    }
   }
 }
